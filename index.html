@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HTML Portal – Ứng dụng & Trò chơi</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f0f13;color:#e8e8f0;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;
+  background:rgba(15,15,19,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav-logo{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;
+  background:linear-gradient(90deg,#a78bfa,#60a5fa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-search{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:6px 12px;flex:1;max-width:320px;margin:0 24px;
+}
+.nav-search input{
+  background:none;border:none;outline:none;color:#e8e8f0;
+  font-size:.88rem;width:100%;font-family:inherit;
+}
+.nav-search input::placeholder{color:#666}
+.nav-search span{color:#666;font-size:.9rem}
+.nav-count{font-size:.8rem;color:#666}
+
+/* ── HERO ── */
+.hero{
+  padding:60px 24px 40px;
+  text-align:center;
+  background:radial-gradient(ellipse at 50% 0%,rgba(124,58,237,.18) 0%,transparent 65%);
+}
+.hero h1{
+  font-size:clamp(2rem,5vw,3.2rem);font-weight:800;letter-spacing:-.03em;
+  line-height:1.1;margin-bottom:12px;
+}
+.hero h1 span{
+  background:linear-gradient(135deg,#a78bfa,#60a5fa,#34d399);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero p{color:#888;font-size:1rem;max-width:480px;margin:0 auto 32px;line-height:1.6}
+.tag-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.tag{
+  padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:600;cursor:pointer;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#aaa;
+  transition:all .15s;
+}
+.tag:hover,.tag.active{background:rgba(167,139,250,.2);border-color:rgba(167,139,250,.5);color:#c4b5fd}
+.tag.active{background:rgba(167,139,250,.25)}
+
+/* ── GRID ── */
+.grid-wrap{padding:32px 24px 80px;max-width:1100px;margin:0 auto}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;
+}
+
+/* ── CARD ── */
+.card{
+  background:#1a1a24;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;overflow:hidden;
+  cursor:pointer;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;
+}
+.card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(167,139,250,.3);
+  box-shadow:0 12px 40px rgba(124,58,237,.15);
+}
+.card-thumb{
+  height:160px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:72px;position:relative;overflow:hidden;
+  background:#12121a;
+}
+.card-thumb .play-overlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.5);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .2s;
+}
+.card:hover .play-overlay{opacity:1}
+.play-btn{
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.9);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:#1d1d1f;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+}
+.card-body{padding:16px;flex:1;display:flex;flex-direction:column}
+.card-badges{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.badge{
+  padding:2px 8px;border-radius:999px;font-size:.7rem;font-weight:600;
+}
+.badge-game{background:rgba(167,139,250,.2);color:#c4b5fd}
+.badge-tool{background:rgba(96,165,250,.2);color:#93c5fd}
+.badge-edu{background:rgba(52,211,153,.2);color:#6ee7b7}
+.badge-new{background:rgba(251,191,36,.2);color:#fcd34d}
+.card-title{font-size:1rem;font-weight:700;margin-bottom:4px;letter-spacing:-.01em}
+.card-desc{font-size:.82rem;color:#888;line-height:1.5;flex:1}
+.card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:14px;padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.card-meta{font-size:.75rem;color:#555}
+.card-open{
+  font-size:.78rem;font-weight:600;color:#a78bfa;
+  display:flex;align-items:center;gap:3px;
+}
+.card-open::after{content:"→"}
+
+/* ── MODAL / VIEWER ── */
+.modal-bg{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;
+  padding:16px;
+}
+.modal-bg.open{display:flex}
+.modal{
+  background:#1a1a24;border-radius:20px;
+  width:100%;max-width:960px;max-height:92vh;
+  display:flex;flex-direction:column;
+  border:1px solid rgba(255,255,255,.1);
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.6);
+}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  flex-shrink:0;
+}
+.modal-title{font-size:.95rem;font-weight:700}
+.modal-actions{display:flex;gap:8px}
+.modal-btn{
+  background:rgba(255,255,255,.08);border:none;border-radius:8px;
+  padding:6px 14px;font-size:.8rem;font-weight:600;color:#e8e8f0;
+  cursor:pointer;transition:background .15s;font-family:inherit;
+}
+.modal-btn:hover{background:rgba(255,255,255,.14)}
+.modal-btn.close{background:rgba(239,68,68,.15);color:#f87171}
+.modal-btn.close:hover{background:rgba(239,68,68,.25)}
+.modal-frame{flex:1;border:none;background:#fff;min-height:0}
+
+/* ── EMPTY STATE ── */
+.empty{
+  text-align:center;padding:80px 24px;color:#555;
+  display:none;
+}
+.empty.show{display:block}
+.empty p{margin-top:12px;font-size:.9rem}
+
+/* ── UPLOAD HINT ── */
+.upload-hint{
+  background:rgba(167,139,250,.08);border:1px dashed rgba(167,139,250,.3);
+  border-radius:16px;padding:32px;text-align:center;margin-top:16px;
+}
+.upload-hint h3{font-size:1rem;font-weight:700;color:#c4b5fd;margin-bottom:6px}
+.upload-hint p{font-size:.83rem;color:#666;line-height:1.6}
+.upload-hint code{
+  background:rgba(255,255,255,.07);border-radius:4px;
+  padding:1px 6px;font-size:.82rem;color:#a78bfa;
+}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:20px 24px;text-align:center;
+  font-size:.78rem;color:#444;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .nav-search{display:none}
+  .modal{max-height:96vh;border-radius:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⬡ HTML Portal</div>
+  <div class="nav-search">
+    <span>🔍</span>
+    <input type="text" id="search-input" placeholder="Tìm kiếm..." oninput="filterApps()"/>
+  </div>
+  <div class="nav-count" id="nav-count"></div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Ứng dụng & Trò chơi<br/><span>HTML miễn phí</span></h1>
+  <p>Bấm vào bất kỳ thẻ nào để chạy ngay trên trình duyệt — không cần tải về, không cần cài đặt.</p>
+  <div class="tag-row">
+    <div class="tag active" onclick="filterTag('all',this)">🌟 Tất cả</div>
+    <div class="tag" onclick="filterTag('game',this)">🎮 Trò chơi</div>
+    <div class="tag" onclick="filterTag('edu',this)">📚 Giáo dục</div>
+    <div class="tag" onclick="filterTag('tool',this)">🔧 Công cụ</div>
+  </div>
+</div>
+
+<!-- GRID -->
+<div class="grid-wrap">
+  <div class="grid" id="app-grid"></div>
+  <div class="empty" id="empty-state">
+    <div style="font-size:3rem">🔍</div>
+    <p>Không tìm thấy kết quả phù hợp.</p>
+  </div>
+
+  <!-- HOW TO ADD MORE -->
+  <div class="upload-hint" style="margin-top:32px">
+    <h3>➕ Thêm file HTML của bạn</h3>
+    <p>
+      Để thêm app/game mới, mở file <code>index.html</code> và thêm một object vào mảng <code>APPS</code> ở đầu script:<br/><br/>
+      <code>{ title:"Tên app", file:"ten-file.html", emoji:"🎯", tag:"game", desc:"Mô tả ngắn", date:"2025" }</code><br/><br/>
+      Sau đó đặt file HTML tương ứng cùng thư mục với <code>index.html</code> rồi upload lên GitHub Pages.
+    </p>
+  </div>
+</div>
+
+<!-- MODAL VIEWER -->
+<div class="modal-bg" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Đang tải...</div>
+      <div class="modal-actions">
+        <button class="modal-btn" onclick="openFullscreen()">⛶ Toàn màn hình</button>
+        <button class="modal-btn close" onclick="closeModal()">✕ Đóng</button>
+      </div>
+    </div>
+    <iframe class="modal-frame" id="modal-frame" src="" allowfullscreen></iframe>
+  </div>
+</div>
+
+<footer>© 2025 HTML Portal · Tất cả ứng dụng chạy trực tiếp trên trình duyệt</footer>
+
+<script>
+// ══════════════════════════════════════════
+//  DANH SÁCH APP – Thêm file HTML vào đây!
+// ══════════════════════════════════════════
+const APPS = [
+  {
+    title: "Game4Dua English",
+    file: "Game4Dua_EN.html",
+    emoji: "🌟",
+    tag: "game",
+    desc: "Trò chơi học tiếng Anh vui nhộn dành cho trẻ em. Bay cùng emoji, chọn đáp án đúng!",
+    date: "2025",
+    color: "#1a2a1a"
+  },
+  // ── THÊM APP MỚI Ở ĐÂY ──
+  // {
+  //   title: "Tên app 2",
+  //   file: "app2.html",
+  //   emoji: "🎯",
+  //   tag: "tool",      // game | edu | tool
+  //   desc: "Mô tả ngắn về app này.",
+  //   date: "2025",
+  //   color: "#1a1a2a"  // màu nền thumbnail (tuỳ chọn)
+  // },
+];
+
+// ── RENDER ──
+let currentTag = 'all';
+let currentSearch = '';
+let currentFile = '';
+
+function renderGrid() {
+  const grid = document.getElementById('app-grid');
+  const empty = document.getElementById('empty-state');
+  const count = document.getElementById('nav-count');
+
+  const filtered = APPS.filter(a => {
+    const matchTag = currentTag === 'all' || a.tag === currentTag;
+    const matchSearch = a.title.toLowerCase().includes(currentSearch) ||
+                        a.desc.toLowerCase().includes(currentSearch);
+    return matchTag && matchSearch;
+  });
+
+  count.textContent = filtered.length + ' ứng dụng';
+  empty.classList.toggle('show', filtered.length === 0);
+  grid.innerHTML = '';
+
+  filtered.forEach(app => {
+    const isNew = app.date === '2025';
+    const tagLabel = {game:'🎮 Game', edu:'📚 Giáo dục', tool:'🔧 Công cụ'}[app.tag] || app.tag;
+    const tagClass = {game:'badge-game', edu:'badge-edu', tool:'badge-tool'}[app.tag] || 'badge-game';
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-thumb" style="background:${app.color||'#12121a'}">
+        <span>${app.emoji}</span>
+        <div class="play-overlay"><div class="play-btn">▶</div></div>
+      </div>
+      <div class="card-body">
+        <div class="card-badges">
+          <span class="badge ${tagClass}">${tagLabel}</span>
+          ${isNew ? '<span class="badge badge-new">✨ Mới</span>' : ''}
+        </div>
+        <div class="card-title">${app.title}</div>
+        <div class="card-desc">${app.desc}</div>
+        <div class="card-footer">
+          <span class="card-meta">📅 ${app.date}</span>
+          <span class="card-open">Mở ngay </span>
+        </div>
+      </div>`;
+    card.onclick = () => openApp(app);
+    grid.appendChild(card);
+  });
+}
+
+function filterTag(tag, el) {
+  currentTag = tag;
+  document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderGrid();
+}
+
+function filterApps() {
+  currentSearch = document.getElementById('search-input').value.toLowerCase();
+  renderGrid();
+}
+
+// ── MODAL ──
+function openApp(app) {
+  document.getElementById('modal-title').textContent = app.emoji + ' ' + app.title;
+  document.getElementById('modal-frame').src = app.file;
+  document.getElementById('modal').classList.add('open');
+  currentFile = app.file;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal')) return;
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modal-frame').src = '';
+  document.body.style.overflow = '';
+}
+
+function openFullscreen() {
+  window.open(currentFile, '_blank');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ── INIT ──
+renderGrid();
+</script>
+</body>
+</html>
