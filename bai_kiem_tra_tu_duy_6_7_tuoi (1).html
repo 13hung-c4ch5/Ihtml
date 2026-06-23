@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bài kiểm tra tư duy (6-7 tuổi - Cấp độ khó)</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+h1, h2 { text-align: center; }
+.question { margin-bottom: 15px; }
+</style>
+</head>
+<body>
+
+<h1>BÀI KIỂM TRA TƯ DUY</h1>
+<h2>Dành cho trẻ 6-7 tuổi (Cấp độ khó)</h2>
+
+<div id="questions"></div>
+
+<script>
+const questions = [
+"1. Số tiếp theo là gì: 2, 4, 6, 8, ... ?",
+"2. Nếu hôm nay là thứ 3, ngày mai là thứ mấy?",
+"3. Con mèo có 4 chân, 2 con mèo có bao nhiêu chân?",
+"4. 5 + 7 = ?",
+"5. 12 - 8 = ?",
+"6. Hình nào có 3 cạnh?",
+"7. Trong các số 3, 9, 5, số nào lớn nhất?",
+"8. Nếu có 10 quả táo, ăn 3 quả còn lại bao nhiêu?",
+"9. 2 + 2 x 2 = ?",
+"10. Con gì kêu 'meo meo'?",
+"11. Nếu trời mưa thì cần mang gì khi ra ngoài?",
+"12. 1 tuần có bao nhiêu ngày?",
+"13. Số đứng trước 10 là số nào?",
+"14. 15 + 5 = ?",
+"15. Hình vuông có bao nhiêu cạnh?",
+"16. Nếu bạn có 20k, mua đồ hết 15k, còn lại bao nhiêu?",
+"17. Số nào nhỏ nhất: 8, 2, 6?",
+"18. 3 x 4 = ?",
+"19. Con gì bay trên trời?",
+"20. 9 + 1 = ?",
+"21. Số nào là số chẵn: 3, 5, 8?",
+"22. Nếu có 3 bạn, mỗi bạn có 2 viên kẹo, tổng là bao nhiêu?",
+"23. 14 - 7 = ?",
+"24. Hình tròn có góc không?",
+"25. 6 + 6 = ?",
+"26. Con gì sống dưới nước?",
+"27. 11 + 9 = ?",
+"28. Số lớn hơn 15 nhưng nhỏ hơn 20 là số nào?",
+"29. 4 x 3 = ?",
+"30. 18 - 10 = ?",
+"31. Con gì có cánh nhưng không bay?",
+"32. 7 + 8 = ?",
+"33. Số tiếp theo: 1, 3, 5, 7, ... ?",
+"34. 20 - 5 = ?",
+"35. Hình tam giác có mấy cạnh?",
+"36. Nếu có 5 con chim, bay đi 2 con, còn lại mấy con?",
+"37. 9 x 2 = ?",
+"38. Số nào là số lẻ: 2, 4, 7?",
+"39. 13 - 6 = ?",
+"40. 10 + 10 = ?",
+"41. 5 x 5 = ?",
+"42. 16 - 9 = ?",
+"43. 8 + 7 = ?",
+"44. 12 + 6 = ?",
+"45. 14 + 3 = ?",
+"46. 30 - 10 = ?",
+"47. 2 x 9 = ?",
+"48. 25 - 5 = ?",
+"49. 6 x 3 = ?",
+"50. 17 - 8 = ?"
+];
+
+const container = document.getElementById("questions");
+
+questions.forEach(q => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.innerHTML = "<b>" + q + "</b><br><input type='text' placeholder='Trả lời...'>";
+  container.appendChild(div);
+});
+</script>
+
+</body>
+</html>
