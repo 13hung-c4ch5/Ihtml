@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Dừa & Mixue – Kho Ứng Dụng HTML</title>
-<meta name="description" content="Bộ sưu tập ứng dụng & trò chơi HTML độc quyền từ Dừa & Mixue — bấm vào là chơi ngay, không cần tải về, không cần cài đặt."/>
+<title>Kho Báu Dừa & Mixue 💎</title>
+<meta name="description" content="Mỗi món quà là một điều kỳ diệu — cùng nhau chơi, cùng nhau học, cùng nhau lớn."/>
 
 <!-- Open Graph / Facebook / Zalo -->
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="Dừa & Mixue – Kho Ứng Dụng HTML 🌴"/>
-<meta property="og:description" content="Bộ sưu tập trò chơi & ứng dụng HTML chạy thẳng trên trình duyệt. Không cần tải, không cần cài — bấm vào là chơi ngay!"/>
-<meta property="og:image" content="https://placehold.co/1200x630/08080c/c9a96e?text=D%E1%BB%ABa+%26+Mixue+%F0%9F%8C%B4&font=playfair-display"/>
+<meta property="og:title" content="Kho Báu Dừa & Mixue 💎"/>
+<meta property="og:description" content="Mỗi món quà là một điều kỳ diệu — cùng nhau chơi, cùng nhau học, cùng nhau lớn. ✨"/>
+<meta property="og:image" content="https://placehold.co/1200x630/08080c/c9a96e?text=Kho+B%C3%A1u+D%E1%BB%ABa+%26+Mixue+%F0%9F%92%8E&font=playfair-display"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:locale" content="vi_VN"/>
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Dừa & Mixue – Kho Ứng Dụng HTML 🌴"/>
-<meta name="twitter:description" content="Bộ sưu tập trò chơi & ứng dụng HTML chạy thẳng trên trình duyệt."/>
+<meta name="twitter:title" content="Kho Báu Dừa & Mixue 💎"/>
+<meta name="twitter:description" content="Mỗi món quà là một điều kỳ diệu — cùng nhau chơi, cùng nhau học, cùng nhau lớn. ✨"/>
 
-<!-- Favicon emoji -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>"/>
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -693,51 +693,42 @@ nav {
   margin-top: 1px;
 }
 
+
 /* ─────────────────────────────────────────
-   MODAL
+   LOADING TOAST
 ───────────────────────────────────────── */
-.modal-bg {
-  position: fixed; inset: 0; z-index: 999;
-  background: rgba(0,0,0,.88);
-  backdrop-filter: blur(12px) saturate(50%);
-  display: none; align-items: center; justify-content: center;
-  padding: 20px;
-  animation: fadeIn .2s ease;
+.loading-toast {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
+  z-index: 9999;
+  background: linear-gradient(135deg, #1a1a24, #14141c);
+  border: 1px solid var(--border-hv);
+  border-radius: 999px;
+  padding: 12px 24px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(201,169,110,.1);
+  opacity: 0;
+  transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .35s;
+  pointer-events: none;
+  white-space: nowrap;
 }
-.modal-bg.open { display: flex; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.modal {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px; overflow: hidden;
-  width: 100%; max-width: 1040px; max-height: 90vh;
-  display: flex; flex-direction: column;
-  box-shadow: 0 40px 100px rgba(0,0,0,.7), 0 0 0 1px rgba(201,169,110,.15);
-  animation: slideUp .25s cubic-bezier(.22,1,.36,1);
+.loading-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
 }
-@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
-.modal-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border);
+.loading-spinner {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid rgba(201,169,110,.2);
+  border-top-color: var(--gold);
+  animation: spin .7s linear infinite;
   flex-shrink: 0;
-  background: rgba(0,0,0,.2);
 }
-.modal-title {
-  font-family: 'Playfair Display', serif;
-  font-size: .95rem; font-weight: 700; color: var(--cream);
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-toast-text {
+  font-size: .82rem; font-weight: 500; color: var(--cream);
 }
-.modal-btns { display: flex; gap: 8px; }
-.mbtn {
-  padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border);
-  background: rgba(255,255,255,.05); color: var(--cream-dim);
-  font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 600;
-  cursor: pointer; transition: all .15s;
+.loading-toast-sub {
+  font-size: .72rem; color: var(--cream-dim);
 }
-.mbtn:hover { border-color: var(--gold); color: var(--gold); }
-.mbtn-close { border-color: rgba(239,68,68,.3); color: #f87171; }
-.mbtn-close:hover { background: rgba(239,68,68,.12); border-color: #f87171; color: #f87171; }
-.modal-frame { flex: 1; border: none; background: #fff; min-height: 0; }
 
 /* ─────────────────────────────────────────
    FOOTER
@@ -931,16 +922,13 @@ footer {
     <p>Chưa có tài liệu nào. Thêm vào mảng EDU_APPS để bắt đầu!</p>
   </div>
 </section>
-<div class="modal-bg" id="modal" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">Đang tải...</div>
-      <div class="modal-btns">
-        <button class="mbtn" onclick="openFullscreen()">⛶ Toàn màn hình</button>
-        <button class="mbtn mbtn-close" onclick="closeModal()">✕ Đóng</button>
-      </div>
-    </div>
-    <iframe class="modal-frame" id="modal-frame" src="" allowfullscreen></iframe>
+
+<!-- ══ LOADING TOAST ══ -->
+<div class="loading-toast" id="loading-toast">
+  <div class="loading-spinner"></div>
+  <div>
+    <div class="loading-toast-text">Đang mở món quà...</div>
+    <div class="loading-toast-sub">Tab mới sẽ xuất hiện ngay</div>
   </div>
 </div>
 
@@ -1314,17 +1302,17 @@ function filterApps() {
 }
 
 /* ══ MODAL ══ */
+/* ══ LOADING TOAST ══ */
+function showToast() {
+  const toast = document.getElementById('loading-toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
 function openApp(app) {
-  window.open(app.file, '_blank');
+  showToast();
+  setTimeout(() => window.open(app.file, '_blank'), 120);
 }
-function closeModal(e) {
-  if (e && e.target !== document.getElementById('modal')) return;
-  document.getElementById('modal').classList.remove('open');
-  document.getElementById('modal-frame').src = '';
-  document.body.style.overflow = '';
-}
-function openFullscreen() { window.open(currentFile, '_blank'); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 /* ══ SPOTLIGHT ══ */
 const hero = document.getElementById('hero');
@@ -1424,5 +1412,29 @@ setTimeout(() => {
   });
 }, 100);
 </script>
+
+<!--
+  ════════════════════════════════════════════
+  📌 NÚT HOME – dán đoạn này vào các file HTML con
+     (game, bài học...) để bé có thể quay về index
+  ════════════════════════════════════════════
+  <style>
+  #home-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, #c9a96e, #8a6c3e);
+    box-shadow: 0 8px 24px rgba(0,0,0,.4), 0 0 0 1px rgba(201,169,110,.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; cursor: pointer; text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    opacity: .85;
+  }
+  #home-btn:hover { transform: scale(1.12); opacity: 1;
+    box-shadow: 0 12px 32px rgba(0,0,0,.5), 0 0 0 2px rgba(201,169,110,.5); }
+  #home-btn:active { transform: scale(.96); }
+  </style>
+  <a id="home-btn" href="index.html" title="Về trang chủ">🏠</a>
+  ════════════════════════════════════════════
+-->
 </body>
 </html>
