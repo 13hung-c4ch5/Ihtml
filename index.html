@@ -1315,11 +1315,7 @@ function filterApps() {
 
 /* ══ MODAL ══ */
 function openApp(app) {
-  document.getElementById('modal-title').textContent = app.emoji + '  ' + app.title;
-  document.getElementById('modal-frame').src = app.file;
-  document.getElementById('modal').classList.add('open');
-  currentFile = app.file;
-  document.body.style.overflow = 'hidden';
+  window.open(app.file, '_blank');
 }
 function closeModal(e) {
   if (e && e.target !== document.getElementById('modal')) return;
