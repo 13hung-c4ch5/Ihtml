@@ -239,6 +239,23 @@ nav {
   color: var(--cream);
 }
 .hero-cta-secondary:hover { background: rgba(255,255,255,.09); }
+
+/* Mood selector */
+.mood-ctas {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+}
+.mood-btn {
+  font-family: 'DM Sans', sans-serif; font-size: .86rem; font-weight: 600;
+  padding: 12px 22px; border-radius: 999px; cursor: pointer;
+  background: rgba(255,255,255,.04); border: 1px solid var(--border);
+  color: var(--cream-dim); transition: transform .2s, border-color .2s, color .2s, background .2s;
+}
+.mood-btn:hover { transform: translateY(-2px); border-color: var(--border-hv); color: var(--cream); }
+.mood-btn.active {
+  background: linear-gradient(135deg, rgba(201,169,110,.22), rgba(201,169,110,.08));
+  border-color: var(--gold); color: var(--gold-lt);
+  box-shadow: 0 6px 18px rgba(201,169,110,.2);
+}
 .hero-eyebrow::after { background: linear-gradient(90deg, var(--gold-dk), transparent); }
 .hero h1 {
   font-family: 'Playfair Display', serif;
@@ -838,9 +855,15 @@ footer {
   <h1>✨ Tìm ra kho báu 💎<br/><em>mở cánh cửa thế giới 🌟</em></h1>
   <p class="hero-sub">✨ Mỗi món quà là một điều kỳ diệu — cùng nhau chơi, cùng nhau học, cùng nhau lớn. 🌟</p>
 
-  <div class="hero-ctas">
-    <a class="hero-cta-btn hero-cta-primary" href="#featured-section">🎁 Khám phá ngay</a>
-    <a class="hero-cta-btn hero-cta-secondary" href="#essential-section">📚 Học hôm nay</a>
+  <p class="hero-eyebrow" style="margin:22px 0 12px;font-size:.66rem">✦ Hôm nay con muốn...</p>
+  <div class="mood-ctas" id="mood-ctas">
+    <button class="mood-btn" data-mood="Thư giãn" onclick="selectMood('Thư giãn')">😊 Thư giãn</button>
+    <button class="mood-btn" data-mood="Thử thách" onclick="selectMood('Thử thách')">🤔 Thử thách</button>
+    <button class="mood-btn" data-mood="Sáng tạo" onclick="selectMood('Sáng tạo')">🎨 Sáng tạo</button>
+    <button class="mood-btn" data-mood="Khám phá" onclick="selectMood('Khám phá')">🚀 Khám phá</button>
+  </div>
+  <div class="hero-ctas" style="margin-top:14px">
+    <button class="hero-cta-btn hero-cta-secondary" onclick="spinRandom()">🎡 Quay ngẫu nhiên</button>
   </div>
 
   <!-- Stats counter -->
@@ -869,6 +892,26 @@ footer {
 
   <!-- Chip lọc theo môn học — render động bằng JS -->
   <div class="chips" id="subject-chips"></div>
+</section>
+
+<!-- ══ KẾT QUẢ THEO CẢM XÚC — ẩn cho tới khi bấm chọn ══ -->
+<div class="edu-separator" id="mood-separator" style="display:none">
+  <div class="edu-separator-inner gold" id="mood-separator-label" data-label=""></div>
+</div>
+<section class="edu-section" id="mood-section" aria-labelledby="mood-title" style="display:none">
+  <div class="edu-header">
+    <div>
+      <span class="edu-eyebrow" style="color:var(--gold-lt)">✦ Theo cảm xúc</span>
+      <h2 class="edu-title" id="mood-title"></h2>
+    </div>
+    <p class="edu-desc" id="mood-desc"></p>
+  </div>
+  <div class="grid-wrap" style="padding:0">
+    <div class="grid" id="mood-grid"></div>
+  </div>
+  <div style="text-align:center;margin-top:18px">
+    <button class="hero-cta-btn hero-cta-secondary" style="padding:8px 18px;font-size:.78rem" onclick="clearMood()">✕ Bỏ chọn, xem tất cả</button>
+  </div>
 </section>
 
 <!-- ══ NỔI BẬT ══ -->
@@ -1019,11 +1062,24 @@ function itemAges(item){
 }
 
 /* Thứ tự ưu tiên hiển thị các môn + emoji đại diện */
-const SUBJECT_ORDER = ["Toán","Tiếng Việt","Tiếng Anh","Khoa học","Tư duy","Nghệ thuật","Tổng hợp","Giải trí"];
+const SUBJECT_ORDER = ["Toán","Tiếng Việt","Tiếng Anh","Khoa học","Tư duy","Nghệ thuật","Đạo đức","Tổng hợp","Giải trí"];
 const SUBJECT_EMOJI = {
   "Toán":"🔢", "Tiếng Việt":"🔤", "Tiếng Anh":"🇬🇧", "Khoa học":"🔬",
-  "Tư duy":"🧩", "Nghệ thuật":"🎨", "Tổng hợp":"📖", "Giải trí":"🎮"
+  "Tư duy":"🧩", "Nghệ thuật":"🎨", "Đạo đức":"💛", "Tổng hợp":"📖", "Giải trí":"🎮"
 };
+/* Tên "địa điểm phiêu lưu" hiển thị ra giao diện — dữ liệu (items.json) vẫn dùng tên gọn ở trên, không đổi */
+const SUBJECT_DISPLAY = {
+  "Toán":"🌳 Khu Rừng Toán",
+  "Tiếng Việt":"🏰 Lâu Đài Tiếng Việt",
+  "Tiếng Anh":"🏝️ Đảo Tiếng Anh",
+  "Khoa học":"🔬 Phòng Thí Nghiệm Khoa Học",
+  "Tư duy":"🧩 Mê Cung Trí Tuệ",
+  "Nghệ thuật":"🎨 Xưởng Nghệ Thuật",
+  "Đạo đức":"🌻 Vườn Yêu Thương",
+  "Giải trí":"🎡 Vương Quốc Vui Chơi",
+  "Tổng hợp":"🏕️ Trạm Nghỉ Chân"
+};
+function subjectDisplay(s){ return SUBJECT_DISPLAY[s] || s; }
 
 /* ══ STATE ══ */
 let currentSubject = 'all';
@@ -1049,6 +1105,7 @@ function matches(item){
     const hit = item.title.toLowerCase().includes(currentSearch) ||
                 item.desc.toLowerCase().includes(currentSearch) ||
                 item.subject.toLowerCase().includes(currentSearch) ||
+                subjectDisplay(item.subject).toLowerCase().includes(currentSearch) ||
                 (item.type  && item.type.toLowerCase().includes(currentSearch)) ||
                 (item.grade && item.grade.toLowerCase().includes(currentSearch)) ||
                 (item.emoji && item.emoji.includes(currentSearch));
@@ -1105,8 +1162,7 @@ function renderChips(){
   let html = `<div class="chip active" data-subject="all" onclick="filterSubject('all',this)">✦ Tất cả <span class="chip-count">${ITEMS.length}</span></div>`;
   subjects.forEach(s => {
     const count = ITEMS.filter(i => i.subject === s).length;
-    const emoji = SUBJECT_EMOJI[s] || '📘';
-    html += `<div class="chip" data-subject="${s}" onclick="filterSubject('${s}',this)">${emoji} ${s} <span class="chip-count">${count}</span></div>`;
+    html += `<div class="chip" data-subject="${s}" onclick="filterSubject('${s}',this)">${subjectDisplay(s)} <span class="chip-count">${count}</span></div>`;
   });
   wrap.innerHTML = html;
 
@@ -1114,7 +1170,7 @@ function renderChips(){
   const footerWrap = document.getElementById('footer-subject-links');
   let fhtml = `<li><a href="#" onclick="return filterSubjectByName('all')">✦ Tất cả</a></li>`;
   subjects.forEach(s => {
-    fhtml += `<li><a href="#" onclick="return filterSubjectByName('${s}')">${SUBJECT_EMOJI[s]||'📘'} ${s}</a></li>`;
+    fhtml += `<li><a href="#" onclick="return filterSubjectByName('${s}')">${subjectDisplay(s)}</a></li>`;
   });
   footerWrap.innerHTML = fhtml;
 }
@@ -1139,6 +1195,77 @@ function filterAge(age, el){
   renderEssential();
   renderSubjectSections();
   updateNavCount();
+}
+
+/* ══ MOOD SELECTOR ("Hôm nay con muốn...") ══ */
+const MOOD_META = {
+  "Thư giãn":  { emoji:"😊", desc:"Nhẹ nhàng, không áp lực — vừa học vừa nghỉ ngơi." },
+  "Thử thách": { emoji:"🤔", desc:"Rèn phản xạ, tư duy nhanh — ai dám thử sức?" },
+  "Sáng tạo":  { emoji:"🎨", desc:"Tự do vẽ, tô màu, thể hiện ý tưởng riêng." },
+  "Khám phá":  { emoji:"🚀", desc:"Phiêu lưu tìm hiểu điều mới lạ." }
+};
+let currentMood = null;
+
+function selectMood(mood){
+  currentMood = (currentMood === mood) ? null : mood; // bấm lại chính nó = bỏ chọn
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.toggle('active', b.dataset.mood === currentMood));
+  renderMoodResults();
+  if(currentMood){
+    document.getElementById('mood-section').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+function clearMood(){
+  currentMood = null;
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+  renderMoodResults();
+}
+function renderMoodResults(){
+  const sep     = document.getElementById('mood-separator');
+  const sepLbl  = document.getElementById('mood-separator-label');
+  const section = document.getElementById('mood-section');
+  if(!currentMood){
+    section.style.display = 'none';
+    sep.style.display = 'none';
+    return;
+  }
+  const meta  = MOOD_META[currentMood];
+  const items = ITEMS.filter(i => i.mood && i.mood.includes(currentMood) && matches(i));
+  document.getElementById('mood-title').textContent = meta.emoji + ' ' + currentMood;
+  document.getElementById('mood-desc').textContent   = meta.desc;
+  sepLbl.setAttribute('data-label', meta.emoji + ' ' + currentMood);
+  const grid = document.getElementById('mood-grid');
+  grid.innerHTML = '';
+  if(items.length === 0){
+    grid.innerHTML = '<p style="color:var(--cream-dim);padding:10px 0 20px">Chưa có bài nào thuộc nhóm này — sắp có thêm sớm! 🌱</p>';
+  } else {
+    items.forEach((app, i) => grid.appendChild(buildGoldCard(app, i)));
+  }
+  section.style.display = '';
+  sep.style.display = '';
+}
+
+/* ══ QUAY NGẪU NHIÊN ("Vòng quay may mắn") ══ */
+function spinRandom(){
+  if(!ITEMS.length) return;
+  const pool = currentMood ? ITEMS.filter(i => i.mood && i.mood.includes(currentMood)) : ITEMS;
+  const list = pool.length ? pool : ITEMS;
+  const pick = list[Math.floor(Math.random() * list.length)];
+  const toast    = document.getElementById('loading-toast');
+  const textEl   = toast.querySelector('.loading-toast-text');
+  const subEl    = toast.querySelector('.loading-toast-sub');
+  const origText = textEl.textContent;
+  const origSub  = subEl.textContent;
+  textEl.textContent = '🎡 Vòng quay dừng ở: ' + pick.emoji + ' ' + pick.title;
+  subEl.textContent  = 'Đang mở...';
+  toast.classList.add('show');
+  setTimeout(() => {
+    window.open(pick.file, '_blank');
+    setTimeout(() => {
+      toast.classList.remove('show');
+      textEl.textContent = origText;
+      subEl.textContent  = origSub;
+    }, 400);
+  }, 1200);
 }
 
 function scrollToSubject(subject){
@@ -1277,7 +1404,6 @@ function renderSubjectSections(){
     anyVisible = true;
 
     const slug  = slugify(subject);
-    const emoji = SUBJECT_EMOJI[subject] || '📘';
     const showGradeTabs = currentSubject === subject; // chỉ hiện tab Lớp khi đã bấm vào đúng môn này
 
     let items = subjectItemsAll;
@@ -1302,13 +1428,13 @@ function renderSubjectSections(){
     wrap.id = 'subject-block-' + slug;
     wrap.innerHTML = `
       <div class="edu-separator">
-        <div class="edu-separator-inner" data-label="${emoji} ${subject}"></div>
+        <div class="edu-separator-inner" data-label="${subjectDisplay(subject)}"></div>
       </div>
       <section class="edu-section" aria-labelledby="subject-title-${slug}">
         <div class="edu-header">
           <div>
             <span class="edu-eyebrow">✦ Chủ đề</span>
-            <h2 class="edu-title" id="subject-title-${slug}">${subject}</h2>
+            <h2 class="edu-title" id="subject-title-${slug}">${subjectDisplay(subject)}</h2>
           </div>
           <p class="edu-desc">${subjectItemsAll.length} bài học &amp; hoạt động</p>
         </div>
