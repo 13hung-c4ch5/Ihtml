@@ -19,10 +19,6 @@
 <meta name="twitter:title" content="Kho Báu Dừa &amp; Mixue 💎"/>
 <meta name="twitter:description" content="Mỗi món quà là một điều kỳ diệu — cùng nhau chơi, cùng nhau học, cùng nhau lớn. ✨"/>
 <meta name="twitter:image" content="https://13hung-c4ch5.github.io/Ihtml/og-khoban.png"/>
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Kho Báu Dừa & Mixue 💎"/>
-<meta name="twitter:description" content="Mỗi món quà là một điều kỳ diệu — cùng nhau chơi, cùng nhau học, cùng nhau lớn. ✨"/>
 
 <!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>"/>
@@ -50,6 +46,8 @@
   --teal-dk:   #0f5c55;
   --purple:    #7c3aed;
   --purple-lt: #c4b5fd;
+  --amber:     #f59e0b;
+  --amber-lt:  #fcd34d;
   --border:    rgba(201,169,110,.18);
   --border-hv: rgba(201,169,110,.55);
   --r:         14px;
@@ -168,28 +166,25 @@ nav {
 ───────────────────────────────────────── */
 .hero {
   position: relative; overflow: hidden;
-  min-height: 74vh;
+  min-height: 52vh;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center;
-  padding: 100px 24px 70px;
+  padding: 80px 24px 50px;
   z-index: 1;
 }
-/* decorative thin horizontal rule above h1 */
 .hero-rule {
   width: 1px; height: 48px;
   background: linear-gradient(to bottom, transparent, var(--gold-dk));
   margin: 0 auto 24px;
   opacity: .7;
 }
-/* spotlight follows mouse */
 .hero-spotlight {
   position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(600px circle at var(--mx,50%) var(--my,40%),
     rgba(201,169,110,.10) 0%, transparent 65%);
   transition: background .1s;
 }
-/* ambient glows */
 .hero::before {
   content: '';
   position: absolute; width: 700px; height: 700px; border-radius: 50%;
@@ -217,6 +212,33 @@ nav {
   content: ''; display: block; width: 40px; height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold-dk));
 }
+
+/* Hero CTA buttons */
+.hero-ctas {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  margin: 28px 0 36px;
+}
+.hero-cta-btn {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 26px; border-radius: 999px;
+  font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 600;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: transform .2s, box-shadow .2s;
+}
+.hero-cta-btn:hover { transform: translateY(-2px); }
+.hero-cta-primary {
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold-dk));
+  color: var(--ink);
+  box-shadow: 0 6px 20px rgba(201,169,110,.35);
+}
+.hero-cta-primary:hover { box-shadow: 0 10px 28px rgba(201,169,110,.5); }
+.hero-cta-secondary {
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border-hv);
+  color: var(--cream);
+}
+.hero-cta-secondary:hover { background: rgba(255,255,255,.09); }
 .hero-eyebrow::after { background: linear-gradient(90deg, var(--gold-dk), transparent); }
 .hero h1 {
   font-family: 'Playfair Display', serif;
@@ -239,13 +261,11 @@ nav {
   max-width: 540px; margin: 0 auto 48px;
   position: relative; z-index: 1;
 }
-/* filter chips */
 .chips {
   display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
   position: relative; z-index: 1;
 }
 
-/* hero stats */
 .hero-stats {
   display: flex; gap: 40px; justify-content: center;
   margin: 36px 0 40px;
@@ -298,7 +318,7 @@ nav {
 .chip.active .chip-count { background: rgba(201,169,110,.2); color: var(--gold-lt); }
 
 /* ─────────────────────────────────────────
-   DIVIDER
+   DIVIDER / SECTION SEPARATOR
 ───────────────────────────────────────── */
 .divider {
   display: flex; align-items: center; gap: 16px;
@@ -307,10 +327,7 @@ nav {
 .divider-line { flex: 1; height: 1px; background: var(--border); }
 .divider-label { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--cream-dim); }
 
-/* ─────────────────────────────────────────
-   GRID
-───────────────────────────────────────── */
-.grid-wrap { padding: 0 32px 100px; max-width: 1160px; margin: 0 auto; position: relative; z-index: 1; }
+.grid-wrap { padding: 0 32px 20px; max-width: 1160px; margin: 0 auto; position: relative; z-index: 1; }
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -318,7 +335,7 @@ nav {
 }
 
 /* ─────────────────────────────────────────
-   CARD
+   CARD (dùng cho khối Nổi bật – tông vàng)
 ───────────────────────────────────────── */
 .card {
   background: var(--card);
@@ -332,7 +349,6 @@ nav {
   animation: cardIn .5s cubic-bezier(.22,1,.36,1) backwards;
 }
 @keyframes cardIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-/* gold corner brackets on hover */
 .card-corner { position: absolute; width: 16px; height: 16px; z-index: 2; opacity: 0; transition: opacity .25s; pointer-events: none; }
 .card-corner::before, .card-corner::after { content: ''; position: absolute; background: var(--gold-lt); }
 .corner-tl { top: 8px; left: 8px; }
@@ -342,7 +358,6 @@ nav {
 .corner-br::before { width: 100%; height: 1.5px; bottom: 0; }
 .corner-br::after  { width: 1.5px; height: 100%; right: 0; }
 .card:hover .card-corner { opacity: .85; }
-/* gold shimmer border on hover */
 .card::before {
   content: '';
   position: absolute; inset: -1px; border-radius: var(--r);
@@ -362,7 +377,6 @@ nav {
 }
 .card:hover::before { opacity: 1; }
 
-/* thumbnail */
 .card-thumb {
   height: 180px; position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
@@ -398,7 +412,6 @@ nav {
 }
 .card:hover .play-ring { opacity: 1; transform: scale(1); }
 
-/* body */
 .card-body { padding: 18px 18px 16px; flex: 1; display: flex; flex-direction: column; }
 .card-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
 .ctag {
@@ -434,7 +447,7 @@ nav {
 .card-action::after { content: '→'; }
 
 /* ─────────────────────────────────────────
-   EDU SECTION – Góc Học Tập
+   SECTION HEADER (dùng chung cho các khối)
 ───────────────────────────────────────── */
 .edu-section {
   padding: 0 32px 80px;
@@ -466,7 +479,6 @@ nav {
   max-width: 380px; line-height: 1.7;
   text-align: right;
 }
-/* decorative separator trước edu section */
 .edu-separator {
   padding: 0 32px; max-width: 1160px; margin: 0 auto 52px;
   position: relative; z-index: 1;
@@ -476,21 +488,28 @@ nav {
   position: relative;
 }
 .edu-separator-inner::before {
-  content: '📚 Góc Học Tập';
+  content: attr(data-label);
   position: absolute; left: 50%; top: -10px; transform: translateX(-50%);
   background: var(--ink); padding: 0 16px;
   font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
   color: var(--teal-lt); font-weight: 700; white-space: nowrap;
 }
+.edu-separator-inner.gold::before  { color: var(--gold-lt); }
+.edu-separator-inner.amber::before { color: var(--amber-lt); }
 
-/* grid edu — 2 cột lớn hơn */
 .edu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 20px;
 }
 
-/* edu card — viền teal, layout ngang */
+/* tab lớp con bên trong 1 môn học (Lớp 1 / 2 / 3 / 4...) */
+.grade-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin: -6px 0 22px;
+}
+.chip-sm { padding: 6px 16px; font-size: .72rem; }
+
 .edu-card {
   background: linear-gradient(135deg, #0d1f1c, #111820);
   border: 1px solid rgba(13,148,136,.28);
@@ -520,6 +539,15 @@ nav {
 }
 .edu-card:hover::before { opacity: 1; }
 
+/* modifier: khối Quan trọng & cần thiết — tông hổ phách */
+.edu-card.card-essential { border-color: rgba(245,158,11,.3); }
+.edu-card.card-essential::before { background: linear-gradient(135deg, var(--amber), transparent 50%, rgba(252,211,77,.3)); }
+.edu-card.card-essential:hover { box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(245,158,11,.5), 0 0 30px rgba(245,158,11,.15); }
+.edu-card.card-essential .edu-type-badge { background: rgba(245,158,11,.25); color: var(--amber-lt); border-color: rgba(245,158,11,.4); }
+.edu-card.card-essential .edu-card-subject { color: var(--amber-lt); }
+.edu-card.card-essential .edu-card-action { color: var(--amber-lt); }
+.edu-card.card-essential .edu-play-ring { background: linear-gradient(135deg, var(--amber-lt), #b45309); }
+
 .edu-card-thumb {
   height: 160px; position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
@@ -543,7 +571,6 @@ nav {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(13,31,28,.8) 0%, transparent 55%);
 }
-/* badge loại tài liệu */
 .edu-type-badge {
   position: absolute; top: 12px; left: 12px;
   padding: 3px 10px; border-radius: 999px;
@@ -591,25 +618,6 @@ nav {
 .edu-card:hover .edu-card-action { gap: 7px; }
 .edu-card-action::after { content: '→'; }
 
-/* progress bar */
-.edu-progress-wrap {
-  margin-top: 10px;
-  display: flex; align-items: center; gap: 10px;
-}
-.edu-progress-bar {
-  flex: 1; height: 3px; border-radius: 99px;
-  background: rgba(255,255,255,.07); overflow: hidden;
-}
-.edu-progress-fill {
-  height: 100%; border-radius: 99px;
-  background: linear-gradient(90deg, var(--teal), var(--teal-lt));
-  transition: width .6s cubic-bezier(.22,1,.36,1);
-}
-.edu-progress-label {
-  font-size: .65rem; color: var(--teal-lt); font-weight: 600;
-  white-space: nowrap;
-}
-
 /* ─────────────────────────────────────────
    SCROLL REVEAL
 ───────────────────────────────────────── */
@@ -618,15 +626,8 @@ nav {
   transition: opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1);
 }
 .reveal.visible { opacity: 1; transform: none; }
-
-/* ─────────────────────────────────────────
-   STAGGER ANIMATION
-───────────────────────────────────────── */
 .edu-card { animation-delay: calc(var(--i,0) * 80ms); }
 
-/* ─────────────────────────────────────────
-   EMPTY EDU
-───────────────────────────────────────── */
 .edu-empty {
   text-align: center; padding: 60px 24px;
   color: var(--cream-dim); border: 1px dashed rgba(13,148,136,.2);
@@ -635,9 +636,6 @@ nav {
 .edu-empty-icon { font-size: 3rem; margin-bottom: 12px; opacity: .4; }
 .edu-empty p { font-size: .88rem; }
 
-/* ─────────────────────────────────────────
-   RESPONSIVE – edu
-───────────────────────────────────────── */
 @media (max-width: 640px) {
   .edu-section { padding: 0 16px 60px; }
   .edu-separator { padding: 0 16px; }
@@ -657,12 +655,14 @@ nav {
    ADD HINT BOX
 ───────────────────────────────────────── */
 .hint-box {
-  margin-top: 48px;
+  margin: 0 auto 80px;
+  max-width: 1160px;
   border: 1px dashed rgba(201,169,110,.25);
   border-radius: 18px; padding: 36px 40px;
   background: rgba(201,169,110,.03);
   display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
   align-items: start;
+  position: relative; z-index: 1;
 }
 .hint-box h3 {
   font-family: 'Playfair Display', serif;
@@ -696,7 +696,6 @@ nav {
   font-size: .68rem; font-weight: 700; color: var(--gold);
   margin-top: 1px;
 }
-
 
 /* ─────────────────────────────────────────
    LOADING TOAST
@@ -799,12 +798,12 @@ footer {
 @media (max-width: 640px) {
   nav { padding: 0 16px; }
   .nav-search-wrap { display: none; }
-  .grid-wrap { padding: 0 16px 80px; }
+  .grid-wrap { padding: 0 16px 20px; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 24px; padding: 32px 0; }
   footer { padding: 0 16px; }
   .divider { padding: 0 16px; }
   .hero { padding: 60px 16px 40px; }
-  .hint-box { padding: 24px 20px; }
+  .hint-box { padding: 24px 20px; margin: 0 16px 60px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -822,14 +821,15 @@ footer {
   </a>
   <div class="nav-search-wrap">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" id="search-input" placeholder="Tìm ứng dụng, trò chơi..." oninput="filterApps()"/>
+    <input type="text" id="search-input" placeholder="Tìm bài học, môn học..." oninput="filterApps()"/>
   </div>
   <div class="nav-right">
     <span class="nav-count" id="nav-count"></span>
-    <a class="nav-cta" href="#add-guide">+ Thêm app</a>
+    <a class="nav-cta" href="#add-guide">+ Thêm bài</a>
   </div>
 </nav>
 
+<main id="main-content">
 <!-- ══ HERO ══ -->
 <section class="hero" id="hero">
   <div class="hero-spotlight" id="spotlight"></div>
@@ -838,94 +838,117 @@ footer {
   <h1>✨ Tìm ra kho báu 💎<br/><em>mở cánh cửa thế giới 🌟</em></h1>
   <p class="hero-sub">✨ Mỗi món quà là một điều kỳ diệu — cùng nhau chơi, cùng nhau học, cùng nhau lớn. 🌟</p>
 
+  <div class="hero-ctas">
+    <a class="hero-cta-btn hero-cta-primary" href="#featured-section">🎁 Khám phá ngay</a>
+    <a class="hero-cta-btn hero-cta-secondary" href="#essential-section">📚 Học hôm nay</a>
+  </div>
+
   <!-- Stats counter -->
   <div class="hero-stats">
     <div class="hero-stat">
       <span class="hero-stat-num" id="stat-total">0</span>
-      <span class="hero-stat-label">Ứng dụng</span>
+      <span class="hero-stat-label">🎁 Tổng bài</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-num" id="stat-game">0</span>
-      <span class="hero-stat-label">Trò chơi</span>
+      <span class="hero-stat-num" id="stat-games">0</span>
+      <span class="hero-stat-label">🎮 Trò chơi</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-num" id="stat-edu">0</span>
-      <span class="hero-stat-label">Bài học</span>
+      <span class="hero-stat-num" id="stat-lessons">0</span>
+      <span class="hero-stat-label">📚 Bài học</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-num" id="stat-tool">0</span>
-      <span class="hero-stat-label">Công cụ</span>
+      <span class="hero-stat-num" id="stat-explore">0</span>
+      <span class="hero-stat-label">🔭 Khám phá</span>
     </div>
   </div>
 
-  <div class="chips">
-    <div class="chip active" onclick="filterTag('all',this)">✦ Tất cả <span class="chip-count" id="chip-count-all">0</span></div>
-    <div class="chip" onclick="filterTag('game',this)">🎮 Trò chơi <span class="chip-count" id="chip-count-game">0</span></div>
-    <div class="chip" onclick="filterTag('tool',this)">🔧 Công cụ <span class="chip-count" id="chip-count-tool">0</span></div>
-  </div>
+  <!-- Chip lọc theo độ tuổi — render động bằng JS -->
+  <p class="hero-eyebrow" style="margin-bottom:10px;font-size:.62rem">Theo độ tuổi</p>
+  <div class="chips" id="age-chips" style="margin-bottom:20px"></div>
+
+  <!-- Chip lọc theo môn học — render động bằng JS -->
+  <div class="chips" id="subject-chips"></div>
 </section>
 
-<!-- ══ GRID ══ -->
-<div class="grid-wrap">
-  <div class="divider">
-    <div class="divider-line"></div>
-    <div class="divider-label" id="divider-label">Tất cả ứng dụng</div>
-    <div class="divider-line"></div>
-  </div>
-
-  <div class="grid" id="app-grid"></div>
-  <div class="empty" id="empty-state">
-    <div class="empty-icon">🔍</div>
-    <p>Không tìm thấy kết quả phù hợp.</p>
-  </div>
-
-  <!-- GUIDE BOX — chỉ hiện khi ?admin=true -->
-  <div class="hint-box" id="add-guide" style="display:none">    <div class="hint-col">
-      <h3>Thêm ứng dụng mới</h3>
-      <p>Mở file <code style="display:inline;padding:1px 6px;border-radius:4px;background:rgba(0,0,0,.4);font-size:.8rem;color:var(--gold-lt)">index.html</code> và thêm một dòng vào mảng <code style="display:inline;padding:1px 6px;border-radius:4px;background:rgba(0,0,0,.4);font-size:.8rem;color:var(--gold-lt)">APPS</code>:</p>
-      <code>{
-  title: "Tên ứng dụng",
-  file:  "ten-file.html",
-  emoji: "🎯",
-  tag:   "game",  <span style="color:#555">// game | edu | tool</span>
-  desc:  "Mô tả ngắn về ứng dụng.",
-  date:  "2025",
-  color: "#1a1a2a" <span style="color:#555">// màu nền thumbnail</span>
-}</code>
-    </div>
-    <div class="hint-col">
-      <h4>Hướng dẫn host miễn phí</h4>
-      <ul class="hint-steps">
-        <li><div class="hint-step-num">1</div><div>Tạo tài khoản tại <strong style="color:var(--cream)">github.com</strong></div></li>
-        <li><div class="hint-step-num">2</div><div>Tạo repo mới, đặt tên ví dụ <strong style="color:var(--cream)">my-portal</strong></div></li>
-        <li><div class="hint-step-num">3</div><div>Upload <strong style="color:var(--cream)">index.html</strong> và tất cả file <strong style="color:var(--cream)">.html</strong> vào cùng thư mục</div></li>
-        <li><div class="hint-step-num">4</div><div>Vào <strong style="color:var(--cream)">Settings → Pages</strong>, chọn branch <strong style="color:var(--cream)">main</strong> → Save</div></li>
-        <li><div class="hint-step-num">5</div><div>Truy cập ngay tại <strong style="color:var(--gold)">tenban.github.io/my-portal</strong> 🎉</div></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- ══ EDU SEPARATOR ══ -->
+<!-- ══ NỔI BẬT ══ -->
 <div class="edu-separator reveal">
-  <div class="edu-separator-inner"></div>
+  <div class="edu-separator-inner gold" data-label="🌟 Nổi bật"></div>
 </div>
-
-<!-- ══ EDU SECTION ══ -->
-<section class="edu-section">
+<section class="edu-section" id="featured-section" aria-labelledby="featured-title">
   <div class="edu-header reveal">
     <div>
-      <span class="edu-eyebrow">✦ Dành riêng cho bé</span>
-      <h2 class="edu-title">Góc Học Tập<br/><em>thật vui & hiệu quả.</em></h2>
+      <span class="edu-eyebrow" style="color:var(--gold-lt)">✦ Chọn lọc thủ công</span>
+      <h2 class="edu-title" id="featured-title">Nổi <em style="background:linear-gradient(135deg,var(--gold-lt),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent">bật</em></h2>
     </div>
-    <p class="edu-desc">Tài liệu, bài tập và trò chơi giáo dục được tuyển chọn kỹ lưỡng — giúp bé học mà vẫn thích.</p>
+    <p class="edu-desc">Những bài học và trò chơi đáng chú ý nhất — được chọn tay, cập nhật thường xuyên.</p>
   </div>
-  <div class="edu-grid" id="edu-grid"></div>
-  <div class="edu-empty" id="edu-empty" style="display:none">
-    <div class="edu-empty-icon">📖</div>
-    <p>Chưa có tài liệu nào. Thêm vào mảng EDU_APPS để bắt đầu!</p>
+  <div class="grid-wrap" style="padding:0">
+    <div class="grid" id="featured-grid"></div>
   </div>
 </section>
+
+<!-- ══ QUAN TRỌNG & CẦN THIẾT ══ -->
+<div class="edu-separator reveal">
+  <div class="edu-separator-inner amber" data-label="⚡ Quan trọng & cần thiết"></div>
+</div>
+<section class="edu-section" id="essential-section" aria-labelledby="essential-title">
+  <div class="edu-header reveal">
+    <div>
+      <span class="edu-eyebrow" style="color:var(--amber-lt)">✦ Ưu tiên ôn luyện</span>
+      <h2 class="edu-title" id="essential-title">Quan trọng &amp; <em style="background:linear-gradient(135deg,var(--amber-lt),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent">cần thiết</em></h2>
+    </div>
+    <p class="edu-desc">Nền tảng cốt lõi bé nên ôn trước — nhóm này luôn hiện đầu trang dù đang lọc theo môn nào.</p>
+  </div>
+  <div class="edu-grid" id="essential-grid"></div>
+</section>
+
+<!-- ══ THEO MÔN HỌC — render động bằng JS ══ -->
+<div id="subject-sections"></div>
+<div class="edu-empty" id="subject-empty" style="display:none;max-width:1160px;margin:0 auto 80px">
+  <div class="edu-empty-icon">🔍</div>
+  <p>Không tìm thấy bài học phù hợp.</p>
+</div>
+
+<!-- GUIDE BOX — chỉ hiện khi ?admin=true -->
+<div class="hint-box" id="add-guide" style="display:none">
+  <div class="hint-col">
+    <h3>Thêm bài học mới</h3>
+    <p>Mở file <code style="display:inline;padding:1px 6px;border-radius:4px;background:rgba(0,0,0,.4);font-size:.8rem;color:var(--gold-lt)">items.json</code> (KHÔNG cần sửa index.html) và thêm một object vào mảng:</p>
+    <code>{
+  "title":     "Tên bài học",
+  "file":      "ten-file.html",
+  "emoji":     "🎯",
+  "subject":   "Toán",
+  "type":      "Bài học",
+  "grade":     "Lớp 1",
+  "gradeLevel":[1],
+  "desc":      "Mô tả ngắn.",
+  "date":      "2026",
+  "color":     "linear-gradient(135deg,#1a1a2a,#0d0d18)",
+  "featured":  false,
+  "essential": false
+}</code>
+    <p style="margin-top:14px;font-size:.78rem;color:var(--cream-dim)">
+      Lưu ý: <strong style="color:var(--cream)">subject</strong> nhận Toán | Tiếng Việt | Tiếng Anh | Khoa học | Tư duy | Nghệ thuật | Giải trí...
+      · <strong style="color:var(--cream)">type</strong> nhận Bài học | Luyện tập | Trò chơi | Khám phá | Thực hành
+      · <strong style="color:var(--cream)">gradeLevel</strong> là mảng số lớp (VD [1,2]), để <code style="background:rgba(0,0,0,.4);padding:1px 6px;border-radius:4px">[]</code> nếu "Mọi lứa tuổi" — dùng để tự lọc theo độ tuổi (Lớp 1→6 tuổi, Lớp 2→7 tuổi...)
+      · JSON bắt buộc dùng dấu ngoặc kép <code style="background:rgba(0,0,0,.4);padding:1px 6px;border-radius:4px">"key"</code>, không dùng comment <code style="background:rgba(0,0,0,.4);padding:1px 6px;border-radius:4px">//</code>, không để dấu phẩy thừa ở object cuối.
+    </p>
+  </div>
+  <div class="hint-col">
+    <h4>Hướng dẫn host miễn phí</h4>
+    <ul class="hint-steps">
+      <li><div class="hint-step-num">1</div><div>Tạo tài khoản tại <strong style="color:var(--cream)">github.com</strong></div></li>
+      <li><div class="hint-step-num">2</div><div>Tạo repo mới, đặt tên ví dụ <strong style="color:var(--cream)">my-portal</strong></div></li>
+      <li><div class="hint-step-num">3</div><div>Upload <strong style="color:var(--cream)">index.html</strong> và tất cả file <strong style="color:var(--cream)">.html</strong> vào cùng thư mục</div></li>
+      <li><div class="hint-step-num">4</div><div>Vào <strong style="color:var(--cream)">Settings → Pages</strong>, chọn branch <strong style="color:var(--cream)">main</strong> → Save</div></li>
+      <li><div class="hint-step-num">5</div><div>Truy cập ngay tại <strong style="color:var(--gold)">tenban.github.io/my-portal</strong> 🎉</div></li>
+    </ul>
+  </div>
+</div>
+
+</main>
 
 <!-- ══ LOADING TOAST ══ -->
 <div class="loading-toast" id="loading-toast">
@@ -941,35 +964,33 @@ footer {
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-brand-name">Dừa <span>&</span> Mixue</div>
-      <p>Kho ứng dụng HTML chạy trực tiếp trên trình duyệt. Được tạo ra với tình yêu và sự sáng tạo.</p>
+      <p>Kho bài học HTML chạy trực tiếp trên trình duyệt. Được tạo ra với tình yêu và sự sáng tạo.</p>
       <div class="footer-badge">
         <span class="footer-badge-dot"></span>
-        Tất cả ứng dụng hoạt động tốt
+        Tất cả bài học hoạt động tốt
       </div>
     </div>
     <div class="footer-col">
       <h4>Danh mục</h4>
-      <ul>
-        <li><a href="#" onclick="filterTagByName('game')">🎮 Trò chơi</a></li>
-        <li><a href="#" onclick="filterTagByName('tool')">🔧 Công cụ</a></li>
-        <li><a href="#edu-grid">📚 Góc Học Tập</a></li>
-        <li><a href="#" onclick="filterTagByName('all')">✦ Tất cả</a></li>
+      <ul id="footer-subject-links">
+        <li><a href="#" onclick="return filterSubjectByName('all')">✦ Tất cả</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Hướng dẫn</h4>
+      <h4>Góc riêng</h4>
       <ul>
-        <li><a href="#add-guide">Thêm ứng dụng</a></li>
-        <li><a href="#add-guide">Host miễn phí</a></li>
-        <li><a href="#add-guide">Cấu trúc file</a></li>
+        <li><a href="#featured-section">🌴 Góc của bố</a></li>
+        <li><a href="#" onclick="return filterSubjectByName('all')">🌟 Góc của Dừa</a></li>
+        <li><a href="#" onclick="return filterSubjectByName('all')">🍡 Góc của Mixue</a></li>
+        <li><a href="#add-guide">Thêm bài học</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Liên hệ</h4>
+      <h4>Nhật ký</h4>
       <ul>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Zalo</a></li>
-        <li><a href="#">Email</a></li>
+        <li><a href="#hero">✨ Điều ước hôm nay</a></li>
+        <li><a href="#essential-section">📖 Đang học gì</a></li>
+        <li><a href="#featured-section">💎 Kho báu mới</a></li>
       </ul>
     </div>
   </div>
@@ -984,176 +1005,77 @@ footer {
 </footer>
 
 <script>
-/* ══ DATA – APPS (game/tool) ══ */
-const APPS = [
-  {
-    title: "Game4Dua English",
-    file:  "Game4Dua_EN.html",
-    emoji: "🌟",
-    tag:   "game",
-    desc:  "Trò chơi học tiếng Anh vui nhộn dành cho trẻ em. Bay cùng emoji, chọn đáp án đúng và ghi điểm cao nhất!",
-    date:  "2025",
-    color: "linear-gradient(135deg,#0a2a0a,#1a3a1a)"
-  },
-  {
-    title: "Dino Run Mixue",
-    file:  "mixue_dino_run.html",
-    emoji: "🦕",
-    tag:   "game",
-    desc:  "Cùng chú khủng long Mixue vượt chướng ngại vật! Nhảy thật cao, chạy thật xa và lập kỷ lục mới.",
-    date:  "2026",
-    color: "linear-gradient(135deg,#1a0a0a,#2a1010)"
-  },
-  {
-    title: "Brain Burst",
-    file:  "BrainBurst_v2_back.html",
-    emoji: "🧠",
-    tag:   "game",
-    desc:  "Thử thách não bộ với loạt câu đố bùng nổ! Phản xạ nhanh, tư duy nhạy — ai dám thử?",
-    date:  "2026",
-    color: "linear-gradient(135deg,#1a0a2a,#0d0820)"
-  },
-  {
-    title: "IQ Game Dừa & Mixue",
-    file:  "IQ game dua&music.html",
-    emoji: "🌴",
-    tag:   "game",
-    desc:  "Trò chơi IQ đặc biệt mang thương hiệu Dừa & Mixue — đo trí tuệ qua các thử thách hình học và logic.",
-    date:  "2026",
-    color: "linear-gradient(135deg,#0a1a10,#0f2a18)"
-  },
-  {
-    title: "Truy Tìm Kho Báu",
-    file:  "truy-tim-kho-bau (1).html",
-    emoji: "🗺️",
-    tag:   "game",
-    desc:  "Giải mã bản đồ bí ẩn, vượt qua các thử thách và tìm ra kho báu ẩn giấu. Cuộc phiêu lưu bắt đầu!",
-    date:  "2026",
-    color: "linear-gradient(135deg,#1a1200,#2a1e00)"
-  },
-  {
-    title: "Thám Hiểm Đại Dương",
-    file:  "tham-hiem-dai-duong.html",
-    emoji: "🌊",
-    tag:   "game",
-    desc:  "Lặn sâu vào lòng đại dương huyền bí, khám phá sinh vật biển kỳ lạ và bí mật dưới đáy nước.",
-    date:  "2026",
-    color: "linear-gradient(135deg,#001a2a,#002a3a)"
-  },
-  // Thêm app mới ở đây ↓
-];
+/* ══════════════════════════════════════════════════
+   DATA — được tải từ items.json (đặt CÙNG THƯ MỤC với index.html)
+   Thêm bài mới: mở items.json, thêm 1 object vào mảng, KHÔNG sửa file này
+══════════════════════════════════════════════════ */
+let ITEMS = [];
 
-/* ══ DATA – EDU (tài liệu học tập) ══ */
-const EDU_APPS = [
-  // ── Tiếng Việt ──
-  {
-    title:    "Bảng Chữ Cái Tiếng Việt",
-    file:     "Chữ cái.html",
-    emoji:    "🔤",
-    subject:  "Tiếng Việt",
-    type:     "Bài học",
-    desc:     "Học thuộc 29 chữ cái Tiếng Việt qua hình ảnh sinh động và phát âm chuẩn — nền tảng đầu tiên cho bé.",
-    grade:    "Lớp 1",
-    progress: 0,
-    color:    "linear-gradient(135deg,#0a1f1a,#091828)"
-  },
-  // ── Toán ──
-  {
-    title:    "Số Đếm 0–10",
-    file:     "so-dem-0-10.html",
-    emoji:    "🔢",
-    subject:  "Toán",
-    type:     "Bài học",
-    desc:     "Làm quen với các con số từ 0 đến 10 qua hình ảnh trực quan, vui nhộn — bước đầu tiên vào thế giới toán học.",
-    grade:    "Mầm non – Lớp 1",
-    progress: 0,
-    color:    "linear-gradient(135deg,#0e1a2a,#091520)"
-  },
-  {
-    title:    "Số Đếm 11–20",
-    file:     "so-dem-11-20.html",
-    emoji:    "🔡",
-    subject:  "Toán",
-    type:     "Bài học",
-    desc:     "Tiếp nối hành trình số đếm từ 11 đến 20 — nhận biết, đếm và so sánh số trong phạm vi hai chữ số.",
-    grade:    "Lớp 1",
-    progress: 0,
-    color:    "linear-gradient(135deg,#0d1a2e,#0a1020)"
-  },
-  {
-    title:    "Bảng Cửu Chương",
-    file:     "Bảng cửu chương x.html",
-    emoji:    "✖️",
-    subject:  "Toán",
-    type:     "Luyện tập",
-    desc:     "Luyện bảng cửu chương từ 2×2 đến 9×9 — thuộc nhanh, nhớ lâu, học mà vẫn vui.",
-    grade:    "Lớp 2–3",
-    progress: 0,
-    color:    "linear-gradient(135deg,#1a0820,#0f0618)"
-  },
-  // ── Khoa học ──
-  {
-    title:    "Hệ Mặt Trời",
-    file:     "Hệ_mặt_trời.html",
-    emoji:    "🪐",
-    subject:  "Khoa học",
-    type:     "Khám phá",
-    desc:     "Bay qua 8 hành tinh, khám phá vũ trụ bao la và những bí ẩn của Hệ Mặt Trời kỳ diệu.",
-    grade:    "Lớp 3–5",
-    progress: 0,
-    color:    "linear-gradient(135deg,#06081a,#0a0c2a)"
-  },
-  // ── Tổng hợp ──
-  {
-    title:    "Bài Tập Tổng Hợp 6–8 Tuổi",
-    file:     "bai-tap-be-6-8-tuoi.html",
-    emoji:    "📖",
-    subject:  "Tổng hợp",
-    type:     "Bài tập",
-    desc:     "Bộ bài tập toàn diện cho bé 6–8 tuổi: toán, tiếng Việt, tư duy logic — ôn luyện vui mà hiệu quả.",
-    grade:    "6–8 tuổi",
-    progress: 0,
-    color:    "linear-gradient(135deg,#0a1a10,#091820)"
-  },
-  {
-    title:    "IQ & Tư Duy Sáng Tạo",
-    file:     "bai-tap-iq-tu-duy.html",
-    emoji:    "🧩",
-    subject:  "Tư duy",
-    type:     "Luyện tập",
-    desc:     "Chuỗi bài tập kích thích IQ và tư duy sáng tạo — hình học, suy luận, tìm điểm khác biệt.",
-    grade:    "Mọi lứa tuổi",
-    progress: 0,
-    color:    "linear-gradient(135deg,#1a0a2a,#0d0820)"
-  },
-  {
-    title:    "Khoa Học Thiên Nhiên",
-    file:     "bai-tap-khoa-hoc-thien-nhien.html",
-    emoji:    "🌿",
-    subject:  "Khoa học",
-    type:     "Khám phá",
-    desc:     "Khám phá thế giới tự nhiên kỳ diệu — cây cối, động vật, thời tiết và các hiện tượng thiên nhiên.",
-    grade:    "Lớp 2–4",
-    progress: 0,
-    color:    "linear-gradient(135deg,#0a1a08,#0f2010)"
-  },
-  {
-    title:    "Sáng Tạo Hình Ảnh",
-    file:     "bai-tap-sang-tao-hinh-anh (1).html",
-    emoji:    "🎨",
-    subject:  "Nghệ thuật",
-    type:     "Thực hành",
-    desc:     "Vẽ, tô màu và sáng tạo không giới hạn — rèn luyện tư duy thẩm mỹ và khả năng biểu đạt hình ảnh.",
-    grade:    "Mọi lứa tuổi",
-    progress: 0,
-    color:    "linear-gradient(135deg,#1a0a10,#200a18)"
-  },
-];
+/* Quy đổi Lớp (gradeLevel) sang độ tuổi tương ứng, dùng cho bộ lọc "Theo độ tuổi" */
+const GRADE_TO_AGE = { 1: 6, 2: 7, 3: 8, 4: 9, 5: 10 };
+function itemAges(item){
+  if(!item.gradeLevel || !item.gradeLevel.length) return []; // [] = "Mọi lứa tuổi"
+  return [...new Set(item.gradeLevel.map(g => GRADE_TO_AGE[g]).filter(Boolean))];
+}
+
+/* Thứ tự ưu tiên hiển thị các môn + emoji đại diện */
+const SUBJECT_ORDER = ["Toán","Tiếng Việt","Tiếng Anh","Khoa học","Tư duy","Nghệ thuật","Tổng hợp","Giải trí"];
+const SUBJECT_EMOJI = {
+  "Toán":"🔢", "Tiếng Việt":"🔤", "Tiếng Anh":"🇬🇧", "Khoa học":"🔬",
+  "Tư duy":"🧩", "Nghệ thuật":"🎨", "Tổng hợp":"📖", "Giải trí":"🎮"
+};
 
 /* ══ STATE ══ */
-let currentTag    = 'all';
-let currentSearch = '';
-let currentFile   = '';
+let currentSubject = 'all';
+let currentGrade   = 'all';   // lọc theo lớp bên trong 1 môn (chỉ dùng khi currentSubject !== 'all')
+let currentSearch  = '';
+let currentAge     = 'all';   // lọc theo độ tuổi (5,6,7,8,9,10) — áp dụng toàn trang
+
+/* ══ HELPERS ══ */
+function slugify(s){
+  return s.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/đ/g,'d')
+    .replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+function getSubjects(){
+  const set = new Set(ITEMS.map(i => i.subject));
+  const ordered = SUBJECT_ORDER.filter(s => set.has(s));
+  const rest = [...set].filter(s => !SUBJECT_ORDER.includes(s)).sort();
+  return [...ordered, ...rest];
+}
+function matches(item){
+  if(currentSearch){
+    const hit = item.title.toLowerCase().includes(currentSearch) ||
+                item.desc.toLowerCase().includes(currentSearch) ||
+                item.subject.toLowerCase().includes(currentSearch) ||
+                (item.type  && item.type.toLowerCase().includes(currentSearch)) ||
+                (item.grade && item.grade.toLowerCase().includes(currentSearch)) ||
+                (item.emoji && item.emoji.includes(currentSearch));
+    if(!hit) return false;
+  }
+  if(currentAge !== 'all'){
+    const ages = itemAges(item);
+    // Bài không gắn tuổi cụ thể (Mọi lứa tuổi) luôn hiển thị ở mọi bộ lọc tuổi
+    if(ages.length && !ages.includes(Number(currentAge))) return false;
+  }
+  return true;
+}
+/* Tự nhận diện các lớp (1,2,3,4...) đang có trong 1 danh sách bài, cộng nhóm "Khác" nếu có bài không theo lớp cụ thể */
+function getGradeBuckets(items){
+  const nums = new Set();
+  let hasOther = false;
+  items.forEach(i => {
+    if(i.gradeLevel && i.gradeLevel.length) i.gradeLevel.forEach(n => nums.add(n));
+    else hasOther = true;
+  });
+  const sorted = [...nums].sort((a,b) => a - b);
+  return hasOther ? [...sorted, 'other'] : sorted;
+}
+function itemInBucket(item, bucket){
+  if(bucket === 'other') return !item.gradeLevel || item.gradeLevel.length === 0;
+  return item.gradeLevel && item.gradeLevel.includes(Number(bucket));
+}
 
 /* ══ COUNTER ANIMATION ══ */
 function animateCount(el, target, duration = 800) {
@@ -1168,151 +1090,246 @@ function animateCount(el, target, duration = 800) {
 }
 
 function updateStats() {
-  const total = APPS.length + EDU_APPS.length;
-  const games = APPS.filter(a => a.tag === 'game').length;
-  const tools = APPS.filter(a => a.tag === 'tool').length;
-  const edus  = EDU_APPS.length;
-
-  animateCount(document.getElementById('stat-total'), total);
-  animateCount(document.getElementById('stat-game'),  games);
-  animateCount(document.getElementById('stat-edu'),   edus);
-  animateCount(document.getElementById('stat-tool'),  tools);
-
-  // chip counts
-  document.getElementById('chip-count-all').textContent  = APPS.length;
-  document.getElementById('chip-count-game').textContent = games;
-  document.getElementById('chip-count-tool').textContent = tools;
+  const LESSON_TYPES  = ['Bài học','Luyện tập','Bài tập'];
+  const EXPLORE_TYPES = ['Khám phá','Thực hành'];
+  animateCount(document.getElementById('stat-total'),   ITEMS.length);
+  animateCount(document.getElementById('stat-games'),   ITEMS.filter(i => i.type === 'Trò chơi').length);
+  animateCount(document.getElementById('stat-lessons'), ITEMS.filter(i => LESSON_TYPES.includes(i.type)).length);
+  animateCount(document.getElementById('stat-explore'), ITEMS.filter(i => EXPLORE_TYPES.includes(i.type)).length);
 }
 
-/* ══ RENDER MAIN GRID ══ */
-function renderGrid() {
-  const grid   = document.getElementById('app-grid');
-  const empty  = document.getElementById('empty-state');
-  const count  = document.getElementById('nav-count');
-  const dlabel = document.getElementById('divider-label');
-
-  const filtered = APPS.filter(a => {
-    const matchTag    = currentTag === 'all' || a.tag === currentTag;
-    const matchSearch = a.title.toLowerCase().includes(currentSearch) ||
-                        a.desc.toLowerCase().includes(currentSearch);
-    return matchTag && matchSearch;
+/* ══ CHIPS (theo môn học) ══ */
+function renderChips(){
+  const wrap = document.getElementById('subject-chips');
+  const subjects = getSubjects();
+  let html = `<div class="chip active" data-subject="all" onclick="filterSubject('all',this)">✦ Tất cả <span class="chip-count">${ITEMS.length}</span></div>`;
+  subjects.forEach(s => {
+    const count = ITEMS.filter(i => i.subject === s).length;
+    const emoji = SUBJECT_EMOJI[s] || '📘';
+    html += `<div class="chip" data-subject="${s}" onclick="filterSubject('${s}',this)">${emoji} ${s} <span class="chip-count">${count}</span></div>`;
   });
+  wrap.innerHTML = html;
 
-  count.textContent  = (filtered.length + EDU_APPS.length) + ' ứng dụng';
-  const tagNames = { all:'Tất cả ứng dụng', game:'Trò chơi', edu:'Giáo dục', tool:'Công cụ' };
-  dlabel.textContent = tagNames[currentTag] || 'Tất cả';
-
-  empty.classList.toggle('show', filtered.length === 0);
-  grid.innerHTML = '';
-
-  filtered.forEach((app, i) => {
-    const isNew   = app.date === '2025' || app.date === '2026';
-    const tagMap  = { game:['🎮 Game','ctag-game'], edu:['📚 Edu','ctag-edu'], tool:['🔧 Tool','ctag-tool'] };
-    const [tagLabel, tagClass] = tagMap[app.tag] || ['ctag-game'];
-
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.style.animationDelay = (i * 60) + 'ms';
-    card.innerHTML = `
-      <div class="card-corner corner-tl"></div>
-      <div class="card-corner corner-br"></div>
-      <div class="card-thumb" style="background:${app.color||'#12121a'}">
-        <div class="card-thumb-emoji">${app.emoji}</div>
-        <div class="card-thumb-overlay"></div>
-        <div class="play-ring">▶</div>
-      </div>
-      <div class="card-body">
-        <div class="card-tags">
-          <span class="ctag ${tagClass}">${tagLabel}</span>
-          ${isNew ? '<span class="ctag ctag-new">✨ Mới</span>' : ''}
-        </div>
-        <div class="card-title">${app.title}</div>
-        <div class="card-desc">${app.desc}</div>
-        <div class="card-footer">
-          <span class="card-date">📅 ${app.date}</span>
-          <span class="card-action">Mở ngay </span>
-        </div>
-      </div>`;
-    card.onclick = () => openApp(app);
-    grid.appendChild(card);
+  // footer links tương ứng
+  const footerWrap = document.getElementById('footer-subject-links');
+  let fhtml = `<li><a href="#" onclick="return filterSubjectByName('all')">✦ Tất cả</a></li>`;
+  subjects.forEach(s => {
+    fhtml += `<li><a href="#" onclick="return filterSubjectByName('${s}')">${SUBJECT_EMOJI[s]||'📘'} ${s}</a></li>`;
   });
+  footerWrap.innerHTML = fhtml;
 }
 
-/* ══ RENDER EDU GRID ══ */
-function renderEduGrid() {
-  const grid  = document.getElementById('edu-grid');
-  const empty = document.getElementById('edu-empty');
-
-  const filtered = EDU_APPS.filter(a =>
-    a.title.toLowerCase().includes(currentSearch) ||
-    a.desc.toLowerCase().includes(currentSearch) ||
-    a.subject.toLowerCase().includes(currentSearch)
-  );
-
-  empty.style.display = filtered.length === 0 ? '' : 'none';
-  grid.innerHTML = '';
-
-  filtered.forEach((app, i) => {
-    const progressPct = app.progress || 0;
-    const card = document.createElement('div');
-    card.className = 'edu-card';
-    card.style.setProperty('--i', i);
-    card.style.animationDelay = (i * 80) + 'ms';
-    card.innerHTML = `
-      <div class="edu-card-thumb" style="background:${app.color||'#0d1f1c'}">
-        <span class="edu-card-emoji">${app.emoji}</span>
-        <div class="edu-card-overlay"></div>
-        <span class="edu-type-badge">${app.type}</span>
-        <div class="edu-play-ring">▶</div>
-      </div>
-      <div class="edu-card-body">
-        <div class="edu-card-subject">${app.subject} · ${app.grade}</div>
-        <div class="edu-card-title">${app.title}</div>
-        <div class="edu-card-desc">${app.desc}</div>
-        ${progressPct > 0 ? `
-        <div class="edu-progress-wrap">
-          <div class="edu-progress-bar"><div class="edu-progress-fill" style="width:${progressPct}%"></div></div>
-          <span class="edu-progress-label">${progressPct}%</span>
-        </div>` : ''}
-        <div class="edu-card-footer">
-          <span class="edu-card-meta">📅 Đã cập nhật 2026</span>
-          <span class="edu-card-action">Học ngay</span>
-        </div>
-      </div>`;
-    card.onclick = () => openApp(app);
-    grid.appendChild(card);
+/* ══ CHIPS (theo độ tuổi) ══ */
+const AGE_LIST = [5,6,7,8,9,10];
+function renderAgeChips(){
+  const wrap = document.getElementById('age-chips');
+  if(!wrap) return;
+  let html = `<div class="chip active" data-age="all" onclick="filterAge('all',this)">✦ Mọi tuổi</div>`;
+  AGE_LIST.forEach(age => {
+    const count = ITEMS.filter(i => { const a = itemAges(i); return a.length===0 || a.includes(age); }).length;
+    html += `<div class="chip" data-age="${age}" onclick="filterAge(${age},this)">${age} tuổi <span class="chip-count">${count}</span></div>`;
   });
+  wrap.innerHTML = html;
 }
-
-/* ══ FILTER ══ */
-function filterTag(tag, el) {
-  currentTag = tag;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+function filterAge(age, el){
+  currentAge = age;
+  document.querySelectorAll('#age-chips .chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  renderGrid();
+  renderFeatured();
+  renderEssential();
+  renderSubjectSections();
+  updateNavCount();
 }
-function filterTagByName(tag) {
-  currentTag = tag;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  const idx = { all:0, game:1, tool:2 }[tag] ?? 0;
-  document.querySelectorAll('.chip')[idx]?.classList.add('active');
-  renderGrid();
+
+function scrollToSubject(subject){
+  const target = subject === 'all'
+    ? document.getElementById('subject-sections')
+    : document.getElementById('subject-block-' + slugify(subject));
+  if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function filterSubject(subject, el){
+  currentSubject = subject;
+  currentGrade = 'all';
+  document.querySelectorAll('#subject-chips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderSubjectSections();
+  scrollToSubject(subject);
+}
+function filterSubjectByName(subject){
+  currentSubject = subject;
+  currentGrade = 'all';
+  document.querySelectorAll('#subject-chips .chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.subject === subject);
+  });
+  renderSubjectSections();
+  scrollToSubject(subject);
   return false;
 }
-function filterApps() {
-  currentSearch = document.getElementById('search-input').value.toLowerCase();
-  renderGrid();
-  renderEduGrid();
+function filterGrade(bucket, el){
+  currentGrade = bucket;
+  document.querySelectorAll('.grade-tabs .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderSubjectSections();
+}
+function filterApps(){
+  currentSearch = document.getElementById('search-input').value.toLowerCase().trim();
+  renderFeatured();
+  renderEssential();
+  renderSubjectSections();
+  updateNavCount();
+}
+function updateNavCount(){
+  const visible = ITEMS.filter(matches).length;
+  document.getElementById('nav-count').textContent = visible + ' bài học';
 }
 
-/* ══ MODAL ══ */
-/* ══ LOADING TOAST ══ */
+/* ══ CARD BUILDERS ══ */
+function buildGoldCard(app, i){
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.style.animationDelay = (i * 60) + 'ms';
+  const isNew = app.date === '2025' || app.date === '2026';
+  card.innerHTML = `
+    <div class="card-corner corner-tl"></div>
+    <div class="card-corner corner-br"></div>
+    <div class="card-thumb" style="background:${app.color||'#12121a'}">
+      <div class="card-thumb-emoji">${app.emoji}</div>
+      <div class="card-thumb-overlay"></div>
+      <div class="play-ring">▶</div>
+    </div>
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="ctag ctag-edu">${SUBJECT_EMOJI[app.subject]||'📘'} ${app.subject}</span>
+        ${isNew ? '<span class="ctag ctag-new">✨ Mới</span>' : ''}
+      </div>
+      <div class="card-title">${app.title}</div>
+      <div class="card-desc">${app.desc}</div>
+      <div class="card-footer">
+        <span class="card-date">🎓 ${app.grade}</span>
+        <span class="card-action">Mở ngay</span>
+      </div>
+    </div>`;
+  card.onclick = () => openApp(app);
+  return card;
+}
+function buildEduCard(app, i, essential){
+  const card = document.createElement('div');
+  card.className = 'edu-card' + (essential ? ' card-essential' : '');
+  card.style.setProperty('--i', i);
+  card.style.animationDelay = (i * 80) + 'ms';
+  card.innerHTML = `
+    <div class="edu-card-thumb" style="background:${app.color||'#0d1f1c'}">
+      <span class="edu-card-emoji">${app.emoji}</span>
+      <div class="edu-card-overlay"></div>
+      <span class="edu-type-badge">${app.type}</span>
+      <div class="edu-play-ring">▶</div>
+    </div>
+    <div class="edu-card-body">
+      <div class="edu-card-subject">${SUBJECT_EMOJI[app.subject]||'📘'} ${app.subject} · ${app.grade}</div>
+      <div class="edu-card-title">${app.title}</div>
+      <div class="edu-card-desc">${app.desc}</div>
+      <div class="edu-card-footer">
+        <span class="edu-card-meta">📅 Đã cập nhật ${app.date}</span>
+        <span class="edu-card-action">Học ngay</span>
+      </div>
+    </div>`;
+  card.onclick = () => openApp(app);
+  return card;
+}
+
+/* ══ RENDER: NỔI BẬT ══ */
+function renderFeatured(){
+  const grid    = document.getElementById('featured-grid');
+  const section = document.getElementById('featured-section');
+  const sep     = section.previousElementSibling;
+  const items   = ITEMS.filter(i => i.featured && matches(i));
+  const show    = items.length > 0;
+  section.style.display = show ? '' : 'none';
+  if(sep) sep.style.display = show ? '' : 'none';
+  grid.innerHTML = '';
+  items.forEach((app, i) => grid.appendChild(buildGoldCard(app, i)));
+}
+
+/* ══ RENDER: QUAN TRỌNG & CẦN THIẾT ══ */
+function renderEssential(){
+  const grid    = document.getElementById('essential-grid');
+  const section = document.getElementById('essential-section');
+  const sep     = section.previousElementSibling;
+  const items   = ITEMS.filter(i => i.essential && matches(i));
+  const show    = items.length > 0;
+  section.style.display = show ? '' : 'none';
+  if(sep) sep.style.display = show ? '' : 'none';
+  grid.innerHTML = '';
+  items.forEach((app, i) => grid.appendChild(buildEduCard(app, i, true)));
+}
+
+/* ══ RENDER: THEO MÔN HỌC ══ */
+function renderSubjectSections(){
+  const container = document.getElementById('subject-sections');
+  container.innerHTML = '';
+  const subjects = getSubjects();
+  let anyVisible = false;
+
+  subjects.forEach(subject => {
+    if(currentSubject !== 'all' && currentSubject !== subject) return;
+    const subjectItemsAll = ITEMS.filter(i => i.subject === subject && matches(i));
+    if(subjectItemsAll.length === 0) return;
+    anyVisible = true;
+
+    const slug  = slugify(subject);
+    const emoji = SUBJECT_EMOJI[subject] || '📘';
+    const showGradeTabs = currentSubject === subject; // chỉ hiện tab Lớp khi đã bấm vào đúng môn này
+
+    let items = subjectItemsAll;
+    let gradeTabsHtml = '';
+    if(showGradeTabs){
+      const buckets = getGradeBuckets(subjectItemsAll);
+      if(buckets.length > 1){
+        const tabs = [`<div class="chip chip-sm${currentGrade==='all'?' active':''}" onclick="filterGrade('all',this)">Tất cả <span class="chip-count">${subjectItemsAll.length}</span></div>`]
+          .concat(buckets.map(b => {
+            const count = subjectItemsAll.filter(i => itemInBucket(i, b)).length;
+            const label = b === 'other' ? 'Khác' : ('Lớp ' + b);
+            return `<div class="chip chip-sm${currentGrade===String(b)?' active':''}" onclick="filterGrade('${b}',this)">${label} <span class="chip-count">${count}</span></div>`;
+          }));
+        gradeTabsHtml = `<div class="grade-tabs">${tabs.join('')}</div>`;
+      }
+      if(currentGrade !== 'all'){
+        items = subjectItemsAll.filter(i => itemInBucket(i, currentGrade));
+      }
+    }
+
+    const wrap = document.createElement('div');
+    wrap.id = 'subject-block-' + slug;
+    wrap.innerHTML = `
+      <div class="edu-separator">
+        <div class="edu-separator-inner" data-label="${emoji} ${subject}"></div>
+      </div>
+      <section class="edu-section" aria-labelledby="subject-title-${slug}">
+        <div class="edu-header">
+          <div>
+            <span class="edu-eyebrow">✦ Chủ đề</span>
+            <h2 class="edu-title" id="subject-title-${slug}">${subject}</h2>
+          </div>
+          <p class="edu-desc">${subjectItemsAll.length} bài học &amp; hoạt động</p>
+        </div>
+        ${gradeTabsHtml}
+        <div class="edu-grid" id="grid-${slug}"></div>
+      </section>`;
+    container.appendChild(wrap);
+
+    const grid = wrap.querySelector(`#grid-${slug}`);
+    items.forEach((app, i) => grid.appendChild(buildEduCard(app, i, false)));
+  });
+
+  document.getElementById('subject-empty').style.display = anyVisible ? 'none' : '';
+}
+
+/* ══ LOADING TOAST + MỞ BÀI ══ */
 function showToast() {
   const toast = document.getElementById('loading-toast');
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 1800);
 }
-
 function openApp(app) {
   showToast();
   setTimeout(() => window.open(app.file, '_blank'), 120);
@@ -1369,7 +1386,7 @@ hero.addEventListener('mousemove', e => {
   draw();
 })();
 
-/* ══ SCROLL REVEAL ══ */
+/* ══ SCROLL REVEAL (chỉ cho các khối tĩnh: hero/featured/essential) ══ */
 (function(){
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1399,22 +1416,29 @@ hero.addEventListener('mousemove', e => {
 })();
 
 /* ══ INIT ══ */
-document.getElementById('copy-year').textContent = new Date().getFullYear();
-renderGrid();
-renderEduGrid();
-updateStats();
-
-/* Reveal edu section khi đã render xong */
-setTimeout(() => {
-  document.querySelectorAll('.reveal').forEach(el => {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if(e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.05 });
-    io.observe(el);
-  });
-}, 100);
+async function init(){
+  document.getElementById('copy-year').textContent = new Date().getFullYear();
+  try {
+    const res = await fetch('items.json');
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    ITEMS = await res.json();
+  } catch(err){
+    console.error('Không tải được items.json:', err);
+    document.getElementById('subject-empty').innerHTML =
+      '<div class="edu-empty-icon">⚠️</div><p>Không tải được dữ liệu bài học (items.json). ' +
+      'Hãy chắc chắn file items.json nằm cùng thư mục với index.html, và trang đang chạy qua http/https (không mở trực tiếp bằng file://).</p>';
+    document.getElementById('subject-empty').style.display = '';
+    ITEMS = [];
+  }
+  renderChips();
+  renderAgeChips();
+  renderFeatured();
+  renderEssential();
+  renderSubjectSections();
+  updateStats();
+  updateNavCount();
+}
+init();
 </script>
 
 <!--

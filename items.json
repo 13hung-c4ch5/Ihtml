@@ -1,0 +1,107 @@
+[
+  {
+    "title": "Game4Dua English", "file": "Game4Dua_EN.html", "emoji": "🌟",
+    "subject": "Tiếng Anh", "type": "Trò chơi", "grade": "Mọi lứa tuổi", "gradeLevel": [],
+    "desc": "Trò chơi học tiếng Anh vui nhộn dành cho trẻ em. Bay cùng emoji, chọn đáp án đúng và ghi điểm cao nhất!",
+    "date": "2025", "color": "linear-gradient(135deg,#0a2a0a,#1a3a1a)",
+    "featured": false, "essential": false
+  },
+  {
+    "title": "Dino Run Mixue", "file": "mixue_dino_run.html", "emoji": "🦕",
+    "subject": "Giải trí", "type": "Trò chơi", "grade": "Mọi lứa tuổi", "gradeLevel": [],
+    "desc": "Cùng chú khủng long Mixue vượt chướng ngại vật! Nhảy thật cao, chạy thật xa và lập kỷ lục mới.",
+    "date": "2026", "color": "linear-gradient(135deg,#1a0a0a,#2a1010)",
+    "featured": true, "essential": false
+  },
+  {
+    "title": "Truy Tìm Kho Báu", "file": "truy-tim-kho-bau (1).html", "emoji": "🗺️",
+    "subject": "Giải trí", "type": "Trò chơi", "grade": "Mọi lứa tuổi", "gradeLevel": [],
+    "desc": "Giải mã bản đồ bí ẩn, vượt qua các thử thách và tìm ra kho báu ẩn giấu. Cuộc phiêu lưu bắt đầu!",
+    "date": "2026", "color": "linear-gradient(135deg,#1a1200,#2a1e00)",
+    "featured": true, "essential": false
+  },
+  {
+    "title": "Brain Burst", "file": "BrainBurst_v2_back.html", "emoji": "🧠",
+    "subject": "Tư duy", "type": "Trò chơi", "grade": "Mọi lứa tuổi", "gradeLevel": [],
+    "desc": "Thử thách não bộ với loạt câu đố bùng nổ! Phản xạ nhanh, tư duy nhạy — ai dám thử?",
+    "date": "2026", "color": "linear-gradient(135deg,#1a0a2a,#0d0820)",
+    "featured": false, "essential": false
+  },
+  {
+    "title": "IQ Game Dừa & Mixue", "file": "IQ game dua&music.html", "emoji": "🌴",
+    "subject": "Tư duy", "type": "Trò chơi", "grade": "Mọi lứa tuổi", "gradeLevel": [],
+    "desc": "Trò chơi IQ đặc biệt mang thương hiệu Dừa & Mixue — đo trí tuệ qua các thử thách hình học và logic.",
+    "date": "2026", "color": "linear-gradient(135deg,#0a1a10,#0f2a18)",
+    "featured": false, "essential": false
+  },
+  {
+    "title": "IQ & Tư Duy Sáng Tạo", "file": "bai-tap-iq-tu-duy.html", "emoji": "🧩",
+    "subject": "Tư duy", "type": "Luyện tập", "grade": "Mọi lứa tuổi", "gradeLevel": [],
+    "desc": "Chuỗi bài tập kích thích IQ và tư duy sáng tạo — hình học, suy luận, tìm điểm khác biệt.",
+    "date": "2026", "color": "linear-gradient(135deg,#1a0a2a,#0d0820)",
+    "featured": false, "essential": false
+  },
+  {
+    "title": "Thám Hiểm Đại Dương", "file": "tham-hiem-dai-duong.html", "emoji": "🌊",
+    "subject": "Khoa học", "type": "Trò chơi", "grade": "Mọi lứa tuổi", "gradeLevel": [],
+    "desc": "Lặn sâu vào lòng đại dương huyền bí, khám phá sinh vật biển kỳ lạ và bí mật dưới đáy nước.",
+    "date": "2026", "color": "linear-gradient(135deg,#001a2a,#002a3a)",
+    "featured": false, "essential": false
+  },
+  {
+    "title": "Hệ Mặt Trời", "file": "Hệ_mặt_trời.html", "emoji": "🪐",
+    "subject": "Khoa học", "type": "Khám phá", "grade": "Lớp 3–5", "gradeLevel": [3,4,5],
+    "desc": "Bay qua 8 hành tinh, khám phá vũ trụ bao la và những bí ẩn của Hệ Mặt Trời kỳ diệu.",
+    "date": "2026", "color": "linear-gradient(135deg,#06081a,#0a0c2a)",
+    "featured": true, "essential": false
+  },
+  {
+    "title": "Khoa Học Thiên Nhiên", "file": "bai-tap-khoa-hoc-thien-nhien.html", "emoji": "🌿",
+    "subject": "Khoa học", "type": "Khám phá", "grade": "Lớp 2–4", "gradeLevel": [2,3,4],
+    "desc": "Khám phá thế giới tự nhiên kỳ diệu — cây cối, động vật, thời tiết và các hiện tượng thiên nhiên.",
+    "date": "2026", "color": "linear-gradient(135deg,#0a1a08,#0f2010)",
+    "featured": false, "essential": false
+  },
+  {
+    "title": "Bảng Chữ Cái Tiếng Việt", "file": "Chữ cái.html", "emoji": "🔤",
+    "subject": "Tiếng Việt", "type": "Bài học", "grade": "Lớp 1", "gradeLevel": [1],
+    "desc": "Học thuộc 29 chữ cái Tiếng Việt qua hình ảnh sinh động và phát âm chuẩn — nền tảng đầu tiên cho bé.",
+    "date": "2025", "color": "linear-gradient(135deg,#0a1f1a,#091828)",
+    "featured": false, "essential": true
+  },
+  {
+    "title": "Số Đếm 0–10", "file": "so-dem-0-10.html", "emoji": "🔢",
+    "subject": "Toán", "type": "Bài học", "grade": "Mầm non – Lớp 1", "gradeLevel": [1],
+    "desc": "Làm quen với các con số từ 0 đến 10 qua hình ảnh trực quan, vui nhộn — bước đầu tiên vào thế giới toán học.",
+    "date": "2025", "color": "linear-gradient(135deg,#0e1a2a,#091520)",
+    "featured": false, "essential": true
+  },
+  {
+    "title": "Số Đếm 11–20", "file": "so-dem-11-20.html", "emoji": "🔡",
+    "subject": "Toán", "type": "Bài học", "grade": "Lớp 1", "gradeLevel": [1],
+    "desc": "Tiếp nối hành trình số đếm từ 11 đến 20 — nhận biết, đếm và so sánh số trong phạm vi hai chữ số.",
+    "date": "2025", "color": "linear-gradient(135deg,#0d1a2e,#0a1020)",
+    "featured": false, "essential": true
+  },
+  {
+    "title": "Bảng Cửu Chương", "file": "Bảng cửu chương x.html", "emoji": "✖️",
+    "subject": "Toán", "type": "Luyện tập", "grade": "Lớp 2–3", "gradeLevel": [2,3],
+    "desc": "Luyện bảng cửu chương từ 2×2 đến 9×9 — thuộc nhanh, nhớ lâu, học mà vẫn vui.",
+    "date": "2026", "color": "linear-gradient(135deg,#1a0820,#0f0618)",
+    "featured": true, "essential": true
+  },
+  {
+    "title": "Bài Tập Tổng Hợp 6–8 Tuổi", "file": "bai-tap-be-6-8-tuoi.html", "emoji": "📖",
+    "subject": "Tổng hợp", "type": "Bài tập", "grade": "6–8 tuổi", "gradeLevel": [1,2,3],
+    "desc": "Bộ bài tập toàn diện cho bé 6–8 tuổi: toán, tiếng Việt, tư duy logic — ôn luyện vui mà hiệu quả.",
+    "date": "2026", "color": "linear-gradient(135deg,#0a1a10,#091820)",
+    "featured": false, "essential": false
+  },
+  {
+    "title": "Sáng Tạo Hình Ảnh", "file": "bai-tap-sang-tao-hinh-anh (1).html", "emoji": "🎨",
+    "subject": "Nghệ thuật", "type": "Thực hành", "grade": "Mọi lứa tuổi", "gradeLevel": [],
+    "desc": "Vẽ, tô màu và sáng tạo không giới hạn — rèn luyện tư duy thẩm mỹ và khả năng biểu đạt hình ảnh.",
+    "date": "2026", "color": "linear-gradient(135deg,#1a0a10,#200a18)",
+    "featured": false, "essential": false
+  }
+]
