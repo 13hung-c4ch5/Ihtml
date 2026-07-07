@@ -1198,6 +1198,15 @@ function filterAge(age, el){
   renderEssential();
   renderSubjectSections();
   updateNavCount();
+
+  // Cuộn xuống khu vực kết quả để người dùng thấy ngay các bài đã được lọc theo tuổi
+  if(age !== 'all'){
+    const target =
+      (document.getElementById('featured-section') && document.getElementById('featured-section').style.display !== 'none' && document.getElementById('featured-section')) ||
+      (document.getElementById('essential-section') && document.getElementById('essential-section').style.display !== 'none' && document.getElementById('essential-section')) ||
+      document.getElementById('subject-sections');
+    if(target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
 }
 
 /* ══ MOOD SELECTOR ("Hôm nay con muốn...") ══ */
