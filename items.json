@@ -5,8 +5,14 @@
     "emoji": "🌟",
     "subject": "Tiếng Anh",
     "type": "Trò chơi",
-    "grade": "Mọi lứa tuổi",
-    "gradeLevel": [],
+    "grade": "6–10 tuổi",
+    "gradeLevel": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
     "desc": "Trò chơi học tiếng Anh vui nhộn dành cho trẻ em. Bay cùng emoji, chọn đáp án đúng và ghi điểm cao nhất!",
     "date": "2025",
     "color": "linear-gradient(135deg,#0a2a0a,#1a3a1a)",
@@ -30,8 +36,8 @@
     "featured": true,
     "essential": false,
     "mood": [
-      "Thử thách",
-      "Khám phá"
+      "Thư giãn",
+      "Thử thách"
     ]
   },
   {
@@ -40,15 +46,20 @@
     "emoji": "🗺️",
     "subject": "Giải trí",
     "type": "Trò chơi",
-    "grade": "Mọi lứa tuổi",
-    "gradeLevel": [],
+    "grade": "8–10 tuổi",
+    "gradeLevel": [
+      3,
+      4,
+      5
+    ],
     "desc": "Giải mã bản đồ bí ẩn, vượt qua các thử thách và tìm ra kho báu ẩn giấu. Cuộc phiêu lưu bắt đầu!",
     "date": "2026",
     "color": "linear-gradient(135deg,#1a1200,#2a1e00)",
     "featured": true,
     "essential": false,
     "mood": [
-      "Khám phá"
+      "Khám phá",
+      "Thử thách"
     ]
   },
   {
@@ -57,8 +68,12 @@
     "emoji": "🧠",
     "subject": "Tư duy",
     "type": "Trò chơi",
-    "grade": "Mọi lứa tuổi",
-    "gradeLevel": [],
+    "grade": "8–10 tuổi",
+    "gradeLevel": [
+      3,
+      4,
+      5
+    ],
     "desc": "Thử thách não bộ với loạt câu đố bùng nổ! Phản xạ nhanh, tư duy nhạy — ai dám thử?",
     "date": "2026",
     "color": "linear-gradient(135deg,#1a0a2a,#0d0820)",
@@ -74,8 +89,11 @@
     "emoji": "🌴",
     "subject": "Tư duy",
     "type": "Trò chơi",
-    "grade": "Mọi lứa tuổi",
-    "gradeLevel": [],
+    "grade": "9–10 tuổi",
+    "gradeLevel": [
+      4,
+      5
+    ],
     "desc": "Trò chơi IQ đặc biệt mang thương hiệu Dừa & Mixue — đo trí tuệ qua các thử thách hình học và logic.",
     "date": "2026",
     "color": "linear-gradient(135deg,#0a1a10,#0f2a18)",
@@ -91,8 +109,12 @@
     "emoji": "🧩",
     "subject": "Tư duy",
     "type": "Luyện tập",
-    "grade": "Mọi lứa tuổi",
-    "gradeLevel": [],
+    "grade": "6–8 tuổi",
+    "gradeLevel": [
+      1,
+      2,
+      3
+    ],
     "desc": "Chuỗi bài tập kích thích IQ và tư duy sáng tạo — hình học, suy luận, tìm điểm khác biệt.",
     "date": "2026",
     "color": "linear-gradient(135deg,#1a0a2a,#0d0820)",
@@ -109,8 +131,12 @@
     "emoji": "🌊",
     "subject": "Khoa học",
     "type": "Trò chơi",
-    "grade": "Mọi lứa tuổi",
-    "gradeLevel": [],
+    "grade": "6–8 tuổi",
+    "gradeLevel": [
+      1,
+      2,
+      3
+    ],
     "desc": "Lặn sâu vào lòng đại dương huyền bí, khám phá sinh vật biển kỳ lạ và bí mật dưới đáy nước.",
     "date": "2026",
     "color": "linear-gradient(135deg,#001a2a,#002a3a)",
@@ -168,7 +194,7 @@
     "emoji": "🔤",
     "subject": "Tiếng Việt",
     "type": "Bài học",
-    "grade": "Lớp 1",
+    "grade": "Mầm non – Lớp 1",
     "gradeLevel": [
       1
     ],
@@ -178,7 +204,8 @@
     "featured": false,
     "essential": true,
     "mood": [
-      "Thư giãn"
+      "Thư giãn",
+      "Khám phá"
     ]
   },
   {
@@ -216,48 +243,8 @@
     "featured": false,
     "essential": true,
     "mood": [
-      "Thư giãn"
-    ]
-  },
-  {
-    "title": "Bảng Cửu Chương",
-    "file": "bang-cuu-chuong-x.html",
-    "emoji": "✖️",
-    "subject": "Toán",
-    "type": "Luyện tập",
-    "grade": "Lớp 2–3",
-    "gradeLevel": [
-      2,
-      3
-    ],
-    "desc": "Luyện bảng cửu chương từ 2×2 đến 9×9 — thuộc nhanh, nhớ lâu, học mà vẫn vui.",
-    "date": "2026",
-    "color": "linear-gradient(135deg,#1a0820,#0f0618)",
-    "featured": true,
-    "essential": true,
-    "mood": [
-      "Thử thách"
-    ]
-  },
-  {
-    "title": "Bài Tập Tổng Hợp 6–8 Tuổi",
-    "file": "bai-tap-be-6-8-tuoi.html",
-    "emoji": "📖",
-    "subject": "Tổng hợp",
-    "type": "Bài tập",
-    "grade": "6–8 tuổi",
-    "gradeLevel": [
-      1,
-      2,
-      3
-    ],
-    "desc": "Bộ bài tập toàn diện cho bé 6–8 tuổi: toán, tiếng Việt, tư duy logic — ôn luyện vui mà hiệu quả.",
-    "date": "2026",
-    "color": "linear-gradient(135deg,#0a1a10,#091820)",
-    "featured": false,
-    "essential": false,
-    "mood": [
-      "Thử thách"
+      "Thư giãn",
+      "Khám phá"
     ]
   },
   {
@@ -266,8 +253,14 @@
     "emoji": "🎨",
     "subject": "Nghệ thuật",
     "type": "Thực hành",
-    "grade": "Mọi lứa tuổi",
-    "gradeLevel": [],
+    "grade": "6–10 tuổi",
+    "gradeLevel": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
     "desc": "Vẽ, tô màu và sáng tạo không giới hạn — rèn luyện tư duy thẩm mỹ và khả năng biểu đạt hình ảnh.",
     "date": "2026",
     "color": "linear-gradient(135deg,#1a0a10,#200a18)",
@@ -295,7 +288,7 @@
     "featured": false,
     "essential": false,
     "mood": [
-      "Thư giãn"
+      "Thử thách"
     ]
   },
   {
@@ -338,7 +331,7 @@
     ]
   },
   {
-    "title": "Bảng Cửu Chương Superhero",
+    "title": "Bảng Cửu Chương – Phiên Bản Siêu Anh Hùng",
     "file": "bang-cuu-chuong-superhero.html",
     "emoji": "🦸",
     "subject": "Toán",
@@ -348,7 +341,7 @@
       2,
       3
     ],
-    "desc": "Luyện bảng cửu chương cùng các siêu anh hùng — mỗi phép nhân đúng là một màn giải cứu.",
+    "desc": "Luyện bảng cửu chương cùng các siêu anh hùng — có màn Boss cực khó, số nhân ngẫu nhiên. Dành cho bé đã nắm cơ bản, muốn thử thách.",
     "date": "2026",
     "color": "linear-gradient(135deg,#1a0a0a,#260d0d)",
     "featured": false,
@@ -363,8 +356,12 @@
     "emoji": "🦕",
     "subject": "Tư duy",
     "type": "Luyện tập",
-    "grade": "Mọi lứa tuổi",
-    "gradeLevel": [],
+    "grade": "6–8 tuổi",
+    "gradeLevel": [
+      1,
+      2,
+      3
+    ],
     "desc": "Rèn tư duy logic qua chủ đề khủng long — tìm điểm khác biệt, ghép hình, suy luận vui nhộn.",
     "date": "2026",
     "color": "linear-gradient(135deg,#1a1408,#241d0a)",
@@ -381,8 +378,12 @@
     "emoji": "🧱",
     "subject": "Tư duy",
     "type": "Trò chơi",
-    "grade": "Mọi lứa tuổi",
-    "gradeLevel": [],
+    "grade": "8–10 tuổi",
+    "gradeLevel": [
+      3,
+      4,
+      5
+    ],
     "desc": "Xếp khối, phá hàng, luyện phản xạ và tư duy không gian theo phong cách Block Blast.",
     "date": "2026",
     "color": "linear-gradient(135deg,#120a1a,#1a0d26)",
@@ -474,6 +475,25 @@
     "desc": "Những bài học nhẹ nhàng về lễ phép, trung thực, yêu thương và biết ơn dành cho lứa tuổi tiểu học.",
     "date": "2026",
     "color": "linear-gradient(135deg,#1a1a0a,#26260d)",
+    "featured": false,
+    "essential": false,
+    "mood": [
+      "Thư giãn"
+    ]
+  },
+  {
+    "title": "Bảng Cửu Chương – Phiên Bản Nhí",
+    "file": "bang-cuu-chuong-x.html",
+    "emoji": "🐣",
+    "subject": "Toán",
+    "type": "Luyện tập",
+    "grade": "Lớp 2",
+    "gradeLevel": [
+      2
+    ],
+    "desc": "Luyện bảng cửu chương từ 1 đến 9 theo thứ tự, nhẹ nhàng dễ hiểu — phù hợp cho bé mới bắt đầu học nhân.",
+    "date": "2026",
+    "color": "linear-gradient(135deg,#0a1a2a,#0d2626)",
     "featured": false,
     "essential": false,
     "mood": [
