@@ -866,26 +866,6 @@ footer {
     <button class="hero-cta-btn hero-cta-secondary" onclick="spinRandom()">🎡 Quay ngẫu nhiên</button>
   </div>
 
-  <!-- Stats counter -->
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <span class="hero-stat-num" id="stat-total">0</span>
-      <span class="hero-stat-label">🎁 Tổng bài</span>
-    </div>
-    <div class="hero-stat">
-      <span class="hero-stat-num" id="stat-games">0</span>
-      <span class="hero-stat-label">🎮 Trò chơi</span>
-    </div>
-    <div class="hero-stat">
-      <span class="hero-stat-num" id="stat-lessons">0</span>
-      <span class="hero-stat-label">📚 Bài học</span>
-    </div>
-    <div class="hero-stat">
-      <span class="hero-stat-num" id="stat-explore">0</span>
-      <span class="hero-stat-label">🔭 Khám phá</span>
-    </div>
-  </div>
-
   <!-- Chip lọc theo độ tuổi — render động bằng JS -->
   <p class="hero-eyebrow" style="margin-bottom:10px;font-size:.62rem">Theo độ tuổi</p>
   <div class="chips" id="age-chips" style="margin-bottom:20px"></div>
@@ -991,6 +971,28 @@ footer {
   </div>
 </div>
 
+<!-- Stats counter — đặt cuối trang, vẫn trên phần Danh mục ở footer -->
+<section class="hero-stats-section" style="max-width:1160px;margin:0 auto 60px;padding:0 20px">
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num" id="stat-total">0</span>
+      <span class="hero-stat-label">🎁 Tổng bài</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" id="stat-games">0</span>
+      <span class="hero-stat-label">🎮 Trò chơi</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" id="stat-lessons">0</span>
+      <span class="hero-stat-label">📚 Bài học</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num" id="stat-explore">0</span>
+      <span class="hero-stat-label">🔭 Khám phá</span>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- ══ LOADING TOAST ══ -->
@@ -1055,7 +1057,7 @@ footer {
 let ITEMS = [];
 
 /* Quy đổi Lớp (gradeLevel) sang độ tuổi tương ứng, dùng cho bộ lọc "Theo độ tuổi" */
-const GRADE_TO_AGE = { 1: 6, 2: 7, 3: 8, 4: 9, 5: 10 };
+const GRADE_TO_AGE = { 0: 5, 1: 6, 2: 7, 3: 8, 4: 9, 5: 10 }; // 0 = Mầm non (5 tuổi)
 function itemAges(item){
   if(!item.gradeLevel || !item.gradeLevel.length) return []; // [] = "Mọi lứa tuổi"
   return [...new Set(item.gradeLevel.map(g => GRADE_TO_AGE[g]).filter(Boolean))];
@@ -1183,7 +1185,8 @@ function renderAgeChips(){
   let html = `<div class="chip active" data-age="all" onclick="filterAge('all',this)">✦ Mọi tuổi</div>`;
   AGE_LIST.forEach(age => {
     const count = ITEMS.filter(i => { const a = itemAges(i); return a.length===0 || a.includes(age); }).length;
-    html += `<div class="chip" data-age="${age}" onclick="filterAge(${age},this)">${age} tuổi <span class="chip-count">${count}</span></div>`;
+    const label = (age === 5) ? 'Lớp Chồi' : `${age} tuổi`;
+    html += `<div class="chip" data-age="${age}" onclick="filterAge(${age},this)">${label} <span class="chip-count">${count}</span></div>`;
   });
   wrap.innerHTML = html;
 }

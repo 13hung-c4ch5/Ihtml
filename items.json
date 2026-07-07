@@ -55,7 +55,7 @@
     "desc": "Giải mã bản đồ bí ẩn, vượt qua các thử thách và tìm ra kho báu ẩn giấu. Cuộc phiêu lưu bắt đầu!",
     "date": "2026",
     "color": "linear-gradient(135deg,#1a1200,#2a1e00)",
-    "featured": true,
+    "featured": false,
     "essential": false,
     "mood": [
       "Khám phá",
@@ -196,6 +196,7 @@
     "type": "Bài học",
     "grade": "Mầm non – Lớp 1",
     "gradeLevel": [
+      0,
       1
     ],
     "desc": "Học thuộc 29 chữ cái Tiếng Việt qua hình ảnh sinh động và phát âm chuẩn — nền tảng đầu tiên cho bé.",
@@ -216,6 +217,7 @@
     "type": "Bài học",
     "grade": "Mầm non – Lớp 1",
     "gradeLevel": [
+      0,
       1
     ],
     "desc": "Làm quen với các con số từ 0 đến 10 qua hình ảnh trực quan, vui nhộn — bước đầu tiên vào thế giới toán học.",
@@ -344,7 +346,7 @@
     "desc": "Luyện bảng cửu chương cùng các siêu anh hùng — có màn Boss cực khó, số nhân ngẫu nhiên. Dành cho bé đã nắm cơ bản, muốn thử thách.",
     "date": "2026",
     "color": "linear-gradient(135deg,#1a0a0a,#260d0d)",
-    "featured": false,
+    "featured": true,
     "essential": false,
     "mood": [
       "Thử thách"
