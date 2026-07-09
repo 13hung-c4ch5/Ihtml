@@ -317,7 +317,7 @@ nav {
   fill:none;stroke:url(#litGrad);stroke-width:3.5;stroke-linecap:round;
   filter:drop-shadow(0 0 6px rgba(226,201,138,.85));
 }
-.map-node{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:10px;z-index:1;}
+.map-node{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;z-index:1;max-width:calc(100% - 8px);}
 .map-node.align-right{flex-direction:row;}
 .map-node.align-left{flex-direction:row-reverse;}
 .node-dot{
@@ -347,9 +347,11 @@ nav {
   border-radius:999px;padding:1px 6px;
 }
 .node-label{
-  font-size:.74rem;font-weight:600;color:var(--cream-dim);white-space:nowrap;
-  transition:color .22s;
+  font-size:.7rem;font-weight:600;color:var(--cream-dim);white-space:normal;
+  max-width:92px;line-height:1.25;transition:color .22s;
 }
+.map-node.align-left .node-label{text-align:right;}
+.map-node.align-right .node-label{text-align:left;}
 .map-node.active .node-label{color:var(--gold-lt);font-weight:700;}
 .map-node:hover .node-label{color:var(--cream);}
 .hero h1 {
@@ -1304,7 +1306,9 @@ function renderSubjectMap(){
   const subjects = getSubjects();
   const N = subjects.length;
 
-  const W = 320, leftX = 90, rightX = 245, centerX = 160;
+  // Toạ độ theo % chiều rộng khung (0–100) — khớp 1:1 với viewBox SVG bên dưới,
+  // nên đường cong và icon luôn thẳng hàng dù màn hình rộng/hẹp khác nhau.
+  const leftX = 28, rightX = 76, centerX = 50;
   const startY = 30, spacing = 90;
   const H = startY + spacing * N + 40;
 
@@ -1318,7 +1322,7 @@ function renderSubjectMap(){
 
   const activeIdx = currentSubject === 'all' ? 0 : points.findIndex(p => p.subject === currentSubject);
 
-  // Đường nối cong (S-curve) qua toàn bộ các trạm
+  // Đường nối cong (S-curve) qua toàn bộ các trạm — cùng hệ toạ độ % với icon
   let pathD = `M${points[0].x},${points[0].y}`;
   for(let i = 1; i < points.length; i++){
     const p1 = points[i-1], p2 = points[i];
@@ -1336,19 +1340,21 @@ function renderSubjectMap(){
     }
   }
 
-  let html = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+  // viewBox rộng 100 đơn vị = 100% chiều rộng khung chứa (preserveAspectRatio="none"
+  // kéo giãn đúng theo % để khớp tuyệt đối với vị trí icon đặt bằng left:x%)
+  let html = `<svg viewBox="0 0 100 ${H}" preserveAspectRatio="none">
     <defs><linearGradient id="litGrad" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#e2c98a"/><stop offset="100%" stop-color="#c9a96e"/>
     </linearGradient></defs>
-    <path class="map-path" d="${pathD}"/>
-    ${litD ? `<path class="map-path-lit" d="${litD}"/>` : ''}
+    <path class="map-path" d="${pathD}" vector-effect="non-scaling-stroke"/>
+    ${litD ? `<path class="map-path-lit" d="${litD}" vector-effect="non-scaling-stroke"/>` : ''}
   </svg>`;
 
   points.forEach((p, i) => {
     const align = p.start ? 'align-right' : (p.x === centerX ? 'align-right' : (p.x === rightX ? 'align-right' : 'align-left'));
     const count = p.start ? ITEMS.length : ITEMS.filter(it => it.subject === p.subject).length;
     const activeCls = i === activeIdx ? ' active' : '';
-    html += `<div class="map-node ${align}${activeCls}" style="top:${p.y}px;left:${p.x}px" onclick="selectMapNode('${p.subject}')">
+    html += `<div class="map-node ${align}${activeCls}" style="top:${p.y}px;left:${p.x}%" onclick="selectMapNode('${p.subject}')">
       <div class="node-dot${p.start ? ' start' : ''}${activeCls}">${p.emoji}${p.start ? '' : `<span class="node-count">${count}</span>`}</div>
       <span class="node-label">${p.label}</span>
     </div>`;
