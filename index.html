@@ -240,120 +240,121 @@ nav {
 }
 .hero-cta-secondary:hover { background: rgba(255,255,255,.09); }
 
+/* Khu đồng hành — thẻ nhân vật (thay cho mood-ctas cũ) */
+.char-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  max-width: 480px; margin: 0 auto; position: relative; z-index: 1;
+}
+@media (max-width: 480px) { .char-grid { grid-template-columns: 1fr; } }
+.char-card {
+  display: flex; align-items: center; gap: 12px; text-align: left;
+  padding: 14px 16px; border-radius: 16px; cursor: pointer;
+  background: rgba(255,255,255,.03); border: 1px solid var(--border);
+  transition: all .22s; font-family: 'DM Sans', sans-serif; width: 100%;
+}
+.char-card:hover { border-color: var(--border-hv); background: rgba(255,255,255,.05); transform: translateY(-2px); }
+.char-card.active {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, rgba(201,169,110,.16), rgba(201,169,110,.05));
+  box-shadow: 0 6px 18px rgba(201,169,110,.2);
+}
+.char-avatar {
+  width: 46px; height: 46px; border-radius: 50%; flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  background: rgba(255,255,255,.05); border: 1px solid var(--border);
+}
+.char-info { flex: 1 1 auto; min-width: 0; }
+.char-card.active .char-avatar { border-color: var(--gold); background: rgba(201,169,110,.15); }
+.char-name { display: block; font-weight: 700; font-size: .86rem; color: var(--cream); margin-bottom: 2px; }
+.char-quote { display: block; font-size: .72rem; color: var(--cream-dim); font-style: italic; line-height: 1.3; }
+.char-card.active .char-name { color: var(--gold-lt); }
+.char-card.mystery {
+  grid-column: 1 / -1;
+  border-style: dashed; border-color: var(--border-hv);
+  background: linear-gradient(135deg, rgba(226,201,138,.06), rgba(255,255,255,.02));
+}
+.char-card.mystery:hover { border-color: var(--gold); }
+.char-card.mystery .char-avatar { background: rgba(201,169,110,.1); }
+.char-card.mystery.pulse { animation: mysteryPulse .5s ease; }
+@keyframes mysteryPulse { 50% { transform: scale(1.03); border-color: var(--gold); } }
+
+/* Vạch tách khối lọc */
+.zone-gap { display: flex; align-items: center; gap: 16px; margin: 48px 0 36px; opacity: .5; position: relative; z-index: 1; }
+.zone-gap::before, .zone-gap::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--border-hv), transparent); }
+.zone-gap-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex: 0 0 auto; }
+
+/* Khối lọc riêng biệt (Bản đồ / Hành trình) */
+.filter-zone {
+  max-width: 720px; margin: 0 auto 28px; text-align: left;
+  background: rgba(255,255,255,.02); border: 1px solid var(--border); border-radius: 20px;
+  padding: 26px 24px 24px; position: relative; z-index: 1;
+}
+.filter-zone-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.filter-zone-icon { font-size: 1.1rem; }
+.filter-zone-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.15rem; color: var(--cream); }
+.filter-zone-desc { font-size: .78rem; color: var(--cream-dim); margin-bottom: 18px; font-weight: 300; }
+
+/* Nút reset dạng icon tròn (thay chip chữ "Tất cả"/"Mọi tuổi") */
+.chip-reset {
+  width: 38px; height: 38px; border-radius: 50%; flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: center; font-size: .95rem;
+  border: 1px solid var(--border); background: rgba(255,255,255,.04); color: var(--gold-lt);
+  cursor: pointer; transition: all .22s;
+}
+.chip-reset:hover { border-color: var(--border-hv); background: rgba(255,255,255,.07); }
+.chip-reset.active {
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold-dk)); color: var(--ink);
+  border-color: var(--gold); box-shadow: 0 4px 16px rgba(201,169,110,.35);
+}
+
+/* Hành trình — vạch tiến trình gradient bên dưới hàng chip */
+.chips-wrap { position: relative; }
+.progress-line {
+  height: 3px; border-radius: 999px; margin-top: 16px;
+  background: linear-gradient(90deg, rgba(201,169,110,.08), var(--gold-dk) 55%, var(--gold-lt));
+}
+
+/* Bản đồ — đường cong dạng game map */
+.map-wrap { position: relative; width: 100%; max-width: 340px; margin: 0 auto; }
+.map-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.map-path { fill: none; stroke: var(--gold-dk); stroke-width: 2.5; stroke-dasharray: 2 10; stroke-linecap: round; opacity: .45; }
+.map-path-lit {
+  fill: none; stroke: url(#litGrad); stroke-width: 3.5; stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(226,201,138,.85));
+}
+.map-node { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 10px; z-index: 1; cursor: pointer; }
+.map-node.align-right { flex-direction: row; }
+.map-node.align-left { flex-direction: row-reverse; }
+.node-dot {
+  width: 58px; height: 58px; border-radius: 50%; flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  background: rgba(26,26,36,.92); border: 1.5px solid var(--border-hv);
+  transition: all .22s; position: relative;
+}
+.map-node:hover .node-dot { border-color: var(--gold); transform: scale(1.06); }
+.node-dot.active {
+  border-color: var(--gold); transform: scale(1.16);
+  background: linear-gradient(135deg, rgba(226,201,138,.35), rgba(138,108,62,.2));
+  box-shadow: 0 0 0 4px rgba(201,169,110,.14), 0 8px 26px rgba(201,169,110,.55), inset 0 1px 0 rgba(255,255,255,.15);
+  animation: nodeGlow 2.2s ease-in-out infinite;
+}
+@keyframes nodeGlow {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(201,169,110,.14), 0 8px 26px rgba(201,169,110,.5), inset 0 1px 0 rgba(255,255,255,.15); }
+  50% { box-shadow: 0 0 0 8px rgba(201,169,110,.05), 0 8px 32px rgba(201,169,110,.75), inset 0 1px 0 rgba(255,255,255,.15); }
+}
+.node-dot.start { background: linear-gradient(135deg, var(--gold-lt), var(--gold-dk)); color: var(--ink); border-color: var(--gold); box-shadow: 0 6px 20px rgba(201,169,110,.4); }
+.node-dot.start.active { animation: nodeGlow 2.2s ease-in-out infinite; }
+.node-count {
+  position: absolute; top: -4px; right: -4px; font-size: .6rem; font-weight: 700;
+  background: var(--ink); border: 1px solid var(--border-hv); color: var(--gold-lt);
+  border-radius: 999px; padding: 1px 6px;
+}
+.node-label { font-size: .74rem; font-weight: 600; color: var(--cream-dim); white-space: nowrap; transition: color .22s; }
+.map-node.active .node-label { color: var(--gold-lt); font-weight: 700; }
+.map-node:hover .node-label { color: var(--cream); }
+.grade-tabs-under-map { max-width: 340px; margin: 14px auto 0; }
+
 .hero-eyebrow::after { background: linear-gradient(90deg, var(--gold-dk), transparent); }
-
-/* ══ THẺ NHÂN VẬT (thay cho mood-ctas cũ) ══ */
-.char-grid{
-  display:grid; grid-template-columns:1fr 1fr; gap:12px;
-  max-width:480px; margin:0 auto;
-}
-@media (max-width:480px){ .char-grid{grid-template-columns:1fr;} }
-.char-card{
-  display:flex; align-items:center; gap:12px; text-align:left;
-  padding:14px 16px; border-radius:16px; cursor:pointer;
-  background:rgba(255,255,255,.03); border:1px solid var(--border);
-  transition:all .22s;
-}
-.char-card:hover{border-color:var(--border-hv);background:rgba(255,255,255,.05);transform:translateY(-2px);}
-.char-card.active{
-  border-color:var(--gold);
-  background:linear-gradient(135deg,rgba(201,169,110,.16),rgba(201,169,110,.05));
-  box-shadow:0 6px 18px rgba(201,169,110,.2);
-}
-.char-avatar{
-  width:46px;height:46px;border-radius:50%;flex:0 0 auto;
-  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
-  background:rgba(255,255,255,.05);border:1px solid var(--border);
-}
-.char-card.active .char-avatar{border-color:var(--gold);background:rgba(201,169,110,.15);}
-.char-name{font-weight:700;font-size:.86rem;color:var(--cream);margin-bottom:2px;}
-.char-quote{font-size:.72rem;color:var(--cream-dim);font-style:italic;line-height:1.3;}
-.char-card.active .char-name{color:var(--gold-lt);}
-.char-card.mystery{
-  grid-column:1 / -1;
-  border-style:dashed; border-color:var(--border-hv);
-  background:linear-gradient(135deg,rgba(226,201,138,.06),rgba(255,255,255,.02));
-}
-.char-card.mystery:hover{border-color:var(--gold);}
-.char-card.mystery .char-avatar{background:rgba(201,169,110,.1);}
-
-.zone-gap{display:flex;align-items:center;gap:16px;margin:44px 0 36px;opacity:.5;}
-.zone-gap::before,.zone-gap::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border-hv),transparent);}
-.zone-gap-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);}
-
-.filter-zone{
-  background:rgba(255,255,255,.02); border:1px solid var(--border); border-radius:20px;
-  padding:26px 24px 24px; margin-bottom:28px; text-align:left;
-}
-.filter-zone-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
-.filter-zone-icon{font-size:1.1rem;}
-.filter-zone-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--cream);}
-.filter-zone-desc{font-size:.78rem;color:var(--cream-dim);margin-bottom:18px;font-weight:300;}
-
-/* ══ chips hàng ngang (Hành trình) — vạch tiến trình gradient bên dưới ══ */
-.chips-wrap{position:relative;}
-.progress-line{
-  height:3px;border-radius:999px;margin-top:16px;
-  background:linear-gradient(90deg, rgba(201,169,110,.08), var(--gold-dk) 55%, var(--gold-lt));
-}
-/* nút reset dạng tròn (icon-only) cho "Mọi tuổi" */
-.chip-reset{
-  width:38px;height:38px;border-radius:50%;flex:0 0 auto;
-  display:flex;align-items:center;justify-content:center;font-size:.95rem;
-  border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--gold-lt);
-  cursor:pointer;transition:all .22s;
-}
-.chip-reset:hover{border-color:var(--border-hv);background:rgba(255,255,255,.07);}
-.chip-reset.active{
-  background:linear-gradient(135deg,var(--gold-lt),var(--gold-dk));color:var(--ink);
-  border-color:var(--gold); box-shadow:0 4px 16px rgba(201,169,110,.35);
-}
-
-/* ══ BẢN ĐỒ — đường cong dạng game map ══ */
-.map-wrap{position:relative;width:100%;margin:0 auto;}
-.map-wrap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
-.map-path{fill:none;stroke:var(--gold-dk);stroke-width:2.5;stroke-dasharray:2 10;stroke-linecap:round;opacity:.45;}
-.map-path-lit{
-  fill:none;stroke:url(#litGrad);stroke-width:3.5;stroke-linecap:round;
-  filter:drop-shadow(0 0 6px rgba(226,201,138,.85));
-}
-.map-node{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;z-index:1;max-width:calc(100% - 8px);}
-.map-node.align-right{flex-direction:row-reverse;}
-.map-node.align-left{flex-direction:row;}
-.node-dot{
-  width:58px;height:58px;border-radius:50%;flex:0 0 auto;
-  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
-  background:rgba(26,26,36,.92);border:1.5px solid var(--border-hv);
-  cursor:pointer;transition:all .22s; position:relative;
-}
-.node-dot:hover{border-color:var(--gold);transform:scale(1.06);}
-.node-dot.active{
-  border-color:var(--gold); transform:scale(1.16);
-  background:linear-gradient(135deg,rgba(226,201,138,.35),rgba(138,108,62,.2));
-  box-shadow:0 0 0 4px rgba(201,169,110,.14), 0 8px 26px rgba(201,169,110,.55), inset 0 1px 0 rgba(255,255,255,.15);
-  animation:nodeGlow 2.2s ease-in-out infinite;
-}
-@keyframes nodeGlow{
-  0%,100%{box-shadow:0 0 0 4px rgba(201,169,110,.14), 0 8px 26px rgba(201,169,110,.5), inset 0 1px 0 rgba(255,255,255,.15);}
-  50%{box-shadow:0 0 0 8px rgba(201,169,110,.05), 0 8px 32px rgba(201,169,110,.75), inset 0 1px 0 rgba(255,255,255,.15);}
-}
-.node-dot.start{
-  background:linear-gradient(135deg,var(--gold-lt),var(--gold-dk));color:var(--ink);
-  border-color:var(--gold); box-shadow:0 6px 20px rgba(201,169,110,.4);
-}
-.node-count{
-  position:absolute;top:-4px;right:-4px;font-size:.6rem;font-weight:700;
-  background:var(--ink);border:1px solid var(--border-hv);color:var(--gold-lt);
-  border-radius:999px;padding:1px 6px;
-}
-.node-label{
-  font-size:.7rem;font-weight:600;color:var(--cream-dim);white-space:normal;
-  max-width:92px;line-height:1.25;transition:color .22s;
-}
-.map-node.align-left .node-label{text-align:left;}
-.map-node.align-right .node-label{text-align:right;}
-.map-node.active .node-label{color:var(--gold-lt);font-weight:700;}
-.map-node:hover .node-label{color:var(--cream);}
 .hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2.8rem, 7vw, 5.6rem);
@@ -952,66 +953,63 @@ footer {
   <h1>✨ Tìm ra kho báu 💎<br/><em>mở cánh cửa thế giới 🌟</em></h1>
   <p class="hero-sub">✨ Mỗi món quà là một điều kỳ diệu — cùng nhau chơi, cùng nhau học, cùng nhau lớn. 🌟</p>
 
-  <p class="hero-eyebrow" style="margin:22px 0 18px;font-size:.66rem">✦ Hôm nay con muốn đi cùng ai?</p>
+  <p class="hero-eyebrow" style="margin:22px 0 16px;font-size:.66rem">✦ Hôm nay con muốn đi cùng ai?</p>
   <div class="char-grid" id="char-grid">
-    <div class="char-card" data-mood="Thử thách" onclick="selectMood('Thử thách')">
-      <div class="char-avatar">🐺</div>
-      <div>
-        <div class="char-name">Jack &amp; Hector</div>
-        <div class="char-quote">"Cùng mình phá những câu đố nhé!"</div>
-      </div>
-    </div>
-    <div class="char-card" data-mood="Thư giãn" onclick="selectMood('Thư giãn')">
-      <div class="char-avatar">🐮</div>
-      <div>
-        <div class="char-name">Bò Đen</div>
-        <div class="char-quote">"Mình có vài câu chuyện hay lắm."</div>
-      </div>
-    </div>
-    <div class="char-card" data-mood="Khám phá" onclick="selectMood('Khám phá')">
-      <div class="char-avatar">🌿</div>
-      <div>
-        <div class="char-name">Nấm, Nhím &amp; Thỏ</div>
-        <div class="char-quote">"Đi khám phá khu rừng thôi!"</div>
-      </div>
-    </div>
-    <div class="char-card" data-mood="Sáng tạo" onclick="selectMood('Sáng tạo')">
-      <div class="char-avatar">🐶</div>
-      <div>
-        <div class="char-name">Đậu &amp; Mun</div>
-        <div class="char-quote">"Chơi một trò thật vui nào!"</div>
-      </div>
-    </div>
-    <div class="char-card mystery" onclick="spinRandom()">
-      <div class="char-avatar">🕵️</div>
-      <div>
-        <div class="char-name">Người bạn bí ẩn</div>
-        <div class="char-quote">"Con có muốn nhận một nhiệm vụ bí mật không?"</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="zone-gap"><span class="zone-gap-dot"></span></div>
-
-  <!-- BẢN ĐỒ — render động bằng JS theo số môn học thực tế trong items.json -->
-  <div class="filter-zone">
-    <div class="filter-zone-head"><span class="filter-zone-icon">🗺️</span><span class="filter-zone-title">Bản đồ</span></div>
-    <p class="filter-zone-desc">Ghé thăm từng vùng đất tri thức</p>
-    <div class="map-wrap" id="subject-map"></div>
-  </div>
-
-  <div class="zone-gap"><span class="zone-gap-dot"></span></div>
-
-  <!-- HÀNH TRÌNH — thay cho chip lọc theo độ tuổi cũ -->
-  <div class="filter-zone">
-    <div class="filter-zone-head"><span class="filter-zone-icon">🧭</span><span class="filter-zone-title">Hành trình</span></div>
-    <p class="filter-zone-desc">Chọn chặng đường phù hợp với tuổi của con</p>
-    <div class="chips-wrap">
-      <div class="chips" id="age-chips"></div>
-      <div class="progress-line"></div>
-    </div>
+    <button class="char-card" data-mood="Thử thách" onclick="selectMood('Thử thách')">
+      <span class="char-avatar">🐺</span>
+      <span class="char-info"><span class="char-name">Jack &amp; Hector</span><span class="char-quote">"Cùng mình phá những câu đố nhé!"</span></span>
+    </button>
+    <button class="char-card" data-mood="Thư giãn" onclick="selectMood('Thư giãn')">
+      <span class="char-avatar">🐮</span>
+      <span class="char-info"><span class="char-name">Bò Đen</span><span class="char-quote">"Mình có vài câu chuyện hay lắm."</span></span>
+    </button>
+    <button class="char-card" data-mood="Khám phá" onclick="selectMood('Khám phá')">
+      <span class="char-avatar">🌿</span>
+      <span class="char-info"><span class="char-name">Nấm, Nhím &amp; Thỏ</span><span class="char-quote">"Đi khám phá khu rừng thôi!"</span></span>
+    </button>
+    <button class="char-card" data-mood="Sáng tạo" onclick="selectMood('Sáng tạo')">
+      <span class="char-avatar">🐶</span>
+      <span class="char-info"><span class="char-name">Đậu &amp; Mun</span><span class="char-quote">"Chơi một trò thật vui nào!"</span></span>
+    </button>
+    <button class="char-card mystery" id="mystery-card" onclick="pickMysteryFriend(this)">
+      <span class="char-avatar">🕵️</span>
+      <span class="char-info"><span class="char-name">Người bạn bí ẩn</span><span class="char-quote">"Con có muốn nhận một nhiệm vụ bí mật không?"</span></span>
+    </button>
   </div>
 </section>
+
+<div class="zone-gap"><span class="zone-gap-dot"></span></div>
+
+<!-- ══ BẢN ĐỒ — lọc theo môn học, render động bằng JS ══ -->
+<div class="filter-zone">
+  <div class="filter-zone-head"><span class="filter-zone-icon">🗺️</span><span class="filter-zone-title">Bản đồ</span></div>
+  <p class="filter-zone-desc">Ghé thăm từng vùng đất tri thức</p>
+  <div class="map-wrap" id="map-wrap">
+    <svg id="map-svg" viewBox="0 0 320 100" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="litGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#e2c98a"/>
+          <stop offset="100%" stop-color="#c9a96e"/>
+        </linearGradient>
+      </defs>
+      <path class="map-path" id="map-path-base" d=""/>
+      <path class="map-path-lit" id="map-path-lit" d=""/>
+    </svg>
+    <div id="map-nodes"></div>
+  </div>
+</div>
+
+<div class="zone-gap"><span class="zone-gap-dot"></span></div>
+
+<!-- ══ HÀNH TRÌNH — lọc theo độ tuổi, render động bằng JS ══ -->
+<div class="filter-zone">
+  <div class="filter-zone-head"><span class="filter-zone-icon">🧭</span><span class="filter-zone-title">Hành trình</span></div>
+  <p class="filter-zone-desc">Chọn chặng đường phù hợp với tuổi của con</p>
+  <div class="chips-wrap">
+    <div class="chips" id="age-chips"></div>
+    <div class="progress-line"></div>
+  </div>
+</div>
 
 <!-- ══ KẾT QUẢ THEO CẢM XÚC — ẩn cho tới khi bấm chọn ══ -->
 <div class="edu-separator" id="mood-separator" style="display:none">
@@ -1296,98 +1294,93 @@ function updateStats() {
   animateCount(document.getElementById('stat-explore'), ITEMS.filter(i => EXPLORE_TYPES.includes(i.type)).length);
 }
 
-/* ══ BẢN ĐỒ (theo môn học) — thay cho chip môn học cũ ══ */
-function mapEmoji(subject){ return (subjectDisplay(subject).split(' ')[0]) || '📘'; }
-function mapLabel(subject){ return subjectDisplay(subject).split(' ').slice(1).join(' ') || subject; }
+/* ══ BẢN ĐỒ (theo môn học) — render node dọc theo đường cong swirl ══ */
+let mapCoords = []; // toạ độ từng trạm, theo thứ tự ['all', ...subjects]
+
+function buildMapPathD(coords){
+  if(coords.length < 2) return '';
+  let d = `M${coords[0].x},${coords[0].y}`;
+  for(let i=0;i<coords.length-1;i++){
+    const a=coords[i], b=coords[i+1];
+    const c1y = a.y + (b.y-a.y)*0.45;
+    const c2y = a.y + (b.y-a.y)*0.55;
+    d += ` C${a.x},${c1y} ${b.x},${c2y} ${b.x},${b.y}`;
+  }
+  return d;
+}
 
 function renderSubjectMap(){
-  const wrap = document.getElementById('subject-map');
-  if(!wrap) return;
+  const nodesWrap = document.getElementById('map-nodes');
+  const svg        = document.getElementById('map-svg');
+  const pathBase    = document.getElementById('map-path-base');
+  const wrap        = document.getElementById('map-wrap');
   const subjects = getSubjects();
-  const N = subjects.length;
+  const items = ['all', ...subjects];
 
-  // Toạ độ theo % chiều rộng khung (0–100) — khớp 1:1 với viewBox SVG bên dưới,
-  // nên đường cong và icon luôn thẳng hàng dù màn hình rộng/hẹp khác nhau.
-  // Biên độ rộng (14–86%) để bản đồ uốn lượn hết chiều ngang, đỡ phải kéo dài xuống dưới.
-  const leftX = 14, rightX = 86, centerX = 50;
-  const startY = 26, spacing = 68;
-  const H = startY + spacing * N + 30;
-
-  // Toạ độ từng trạm: xen kẽ trái/phải, trạm cuối cùng canh giữa như điểm đến
-  const points = [{ x: centerX, y: startY, subject: 'all', emoji: '🌍', label: 'Tất cả', start: true }];
-  subjects.forEach((s, i) => {
-    const isLast = i === N - 1;
-    const x = isLast ? centerX : (i % 2 === 0 ? rightX : leftX);
-    points.push({ x, y: startY + spacing * (i + 1), subject: s, emoji: mapEmoji(s), label: mapLabel(s) });
+  // toạ độ dạng đường cong swirl rộng — xen kẽ trái/phải, đi dọc xuống
+  const VB_W = 320, X_LEFT = 34, X_RIGHT = 286, X_CENTER = 160;
+  const STEP_Y = 94, TOP_PAD = 36, BOT_PAD = 40;
+  mapCoords = items.map((key, i) => {
+    let x;
+    if(i === 0) x = X_CENTER;
+    else x = (i % 2 === 1) ? X_RIGHT : X_LEFT;
+    return { key, x, y: TOP_PAD + i * STEP_Y };
   });
+  const totalH = TOP_PAD + (items.length - 1) * STEP_Y + BOT_PAD;
 
-  const activeIdx = currentSubject === 'all' ? 0 : points.findIndex(p => p.subject === currentSubject);
+  svg.setAttribute('viewBox', `0 0 ${VB_W} ${totalH}`);
+  wrap.style.height = totalH + 'px';
+  pathBase.setAttribute('d', buildMapPathD(mapCoords));
 
-  // Đường nối cong (S-curve) qua toàn bộ các trạm — cùng hệ toạ độ % với icon
-  let pathD = `M${points[0].x},${points[0].y}`;
-  for(let i = 1; i < points.length; i++){
-    const p1 = points[i-1], p2 = points[i];
-    const midY = (p1.y + p2.y) / 2;
-    pathD += ` C${p1.x},${midY} ${p2.x},${midY} ${p2.x},${p2.y}`;
-  }
-  // Đường sáng: từ điểm bắt đầu tới trạm đang chọn
-  let litD = '';
-  if(activeIdx > 0){
-    litD = `M${points[0].x},${points[0].y}`;
-    for(let i = 1; i <= activeIdx; i++){
-      const p1 = points[i-1], p2 = points[i];
-      const midY = (p1.y + p2.y) / 2;
-      litD += ` C${p1.x},${midY} ${p2.x},${midY} ${p2.x},${p2.y}`;
+  let html = '';
+  mapCoords.forEach((c, i) => {
+    const align = (c.x <= X_CENTER) ? 'align-right' : 'align-left';
+    const leftPct = (c.x / VB_W * 100).toFixed(2) + '%';
+    if(i === 0){
+      html += `<div class="map-node align-right active" data-subject="all" style="top:${c.y}px;left:${leftPct}" onclick="filterSubject('all')">
+        <div class="node-dot start active">🌍</div>
+        <span class="node-label">Tất cả</span>
+      </div>`;
+    } else {
+      const s = c.key;
+      const count = ITEMS.filter(i2 => i2.subject === s).length;
+      const label = subjectDisplay(s);
+      const emoji = SUBJECT_EMOJI[s] || '📘';
+      const name  = label.replace(/^\S+\s*/, ''); // bỏ emoji đầu, giữ tên địa danh
+      html += `<div class="map-node ${align}" data-subject="${s}" style="top:${c.y}px;left:${leftPct}" onclick="filterSubject('${s}')">
+        <div class="node-dot">${emoji}<span class="node-count">${count}</span></div>
+        <span class="node-label">${name}</span>
+      </div>`;
     }
-  }
-
-  // viewBox rộng 100 đơn vị = 100% chiều rộng khung chứa (preserveAspectRatio="none"
-  // kéo giãn đúng theo % để khớp tuyệt đối với vị trí icon đặt bằng left:x%)
-  let html = `<svg viewBox="0 0 100 ${H}" preserveAspectRatio="none">
-    <defs><linearGradient id="litGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#e2c98a"/><stop offset="100%" stop-color="#c9a96e"/>
-    </linearGradient></defs>
-    <path class="map-path" d="${pathD}" vector-effect="non-scaling-stroke"/>
-    ${litD ? `<path class="map-path-lit" d="${litD}" vector-effect="non-scaling-stroke"/>` : ''}
-  </svg>`;
-
-  points.forEach((p, i) => {
-    const align = p.start ? 'align-right' : (p.x === centerX ? 'align-right' : (p.x === rightX ? 'align-right' : 'align-left'));
-    const count = p.start ? ITEMS.length : ITEMS.filter(it => it.subject === p.subject).length;
-    const activeCls = i === activeIdx ? ' active' : '';
-    html += `<div class="map-node ${align}${activeCls}" style="top:${p.y}px;left:${p.x}%" onclick="selectMapNode('${p.subject}')">
-      <div class="node-dot${p.start ? ' start' : ''}${activeCls}">${p.emoji}${p.start ? '' : `<span class="node-count">${count}</span>`}</div>
-      <span class="node-label">${p.label}</span>
-    </div>`;
   });
+  nodesWrap.innerHTML = html;
 
-  wrap.style.height = H + 'px';
-  wrap.innerHTML = html;
+  updateMapLitPath();
 
   // footer links tương ứng
   const footerWrap = document.getElementById('footer-subject-links');
-  if(footerWrap){
-    let fhtml = `<li><a href="#" onclick="return filterSubjectByName('all')">✦ Tất cả</a></li>`;
-    subjects.forEach(s => {
-      fhtml += `<li><a href="#" onclick="return filterSubjectByName('${s}')">${subjectDisplay(s)}</a></li>`;
-    });
-    footerWrap.innerHTML = fhtml;
-  }
-}
-function selectMapNode(subject){
-  currentSubject = subject;
-  currentGrade = 'all';
-  renderSubjectMap();
-  renderSubjectSections();
-  scrollToSubject(subject);
+  let fhtml = `<li><a href="#" onclick="return filterSubjectByName('all')">✦ Tất cả</a></li>`;
+  subjects.forEach(s => {
+    fhtml += `<li><a href="#" onclick="return filterSubjectByName('${s}')">${subjectDisplay(s)}</a></li>`;
+  });
+  footerWrap.innerHTML = fhtml;
 }
 
-/* ══ HÀNH TRÌNH (theo độ tuổi) — nút tròn ⭐ reset + chip ══ */
+/* Vẽ đoạn "đường sáng" từ điểm bắt đầu tới trạm đang chọn, kiểu bản đồ game */
+function updateMapLitPath(){
+  const pathLit = document.getElementById('map-path-lit');
+  if(!pathLit || !mapCoords.length) return;
+  const idx = mapCoords.findIndex(c => c.key === currentSubject);
+  if(idx <= 0){ pathLit.setAttribute('d', ''); return; }
+  pathLit.setAttribute('d', buildMapPathD(mapCoords.slice(0, idx + 1)));
+}
+
+/* ══ CHIPS (theo độ tuổi) ══ */
 const AGE_LIST = [5,6,7,8,9,10];
 function renderAgeChips(){
   const wrap = document.getElementById('age-chips');
   if(!wrap) return;
-  let html = `<div class="chip-reset active" data-age="all" title="Mọi tuổi" onclick="filterAge('all',this)">⭐</div>`;
+  let html = `<div class="chip chip-reset active" data-age="all" title="Mọi tuổi" onclick="filterAge('all',this)">⭐</div>`;
   AGE_LIST.forEach(age => {
     const count = ITEMS.filter(i => { const a = itemAges(i); return a.length===0 || a.includes(age); }).length;
     const label = (age === 5) ? 'Lớp Chồi' : `${age} tuổi`;
@@ -1397,7 +1390,7 @@ function renderAgeChips(){
 }
 function filterAge(age, el){
   currentAge = age;
-  document.querySelectorAll('#age-chips .chip, #age-chips .chip-reset').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('#age-chips .chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   renderFeatured();
   renderEssential();
@@ -1425,7 +1418,7 @@ let currentMood = null;
 
 function selectMood(mood){
   currentMood = (currentMood === mood) ? null : mood; // bấm lại chính nó = bỏ chọn
-  document.querySelectorAll('.char-card[data-mood]').forEach(b => b.classList.toggle('active', b.dataset.mood === currentMood));
+  document.querySelectorAll('#char-grid .char-card[data-mood]').forEach(b => b.classList.toggle('active', b.dataset.mood === currentMood));
   renderMoodResults();
   if(currentMood){
     document.getElementById('mood-section').scrollIntoView({ behavior:'smooth', block:'start' });
@@ -1433,7 +1426,7 @@ function selectMood(mood){
 }
 function clearMood(){
   currentMood = null;
-  document.querySelectorAll('.char-card[data-mood]').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#char-grid .char-card[data-mood]').forEach(b => b.classList.remove('active'));
   renderMoodResults();
 }
 function renderMoodResults(){
@@ -1461,7 +1454,13 @@ function renderMoodResults(){
   sep.style.display = '';
 }
 
-/* ══ QUAY NGẪU NHIÊN ("Vòng quay may mắn") ══ */
+/* ══ NGƯỜI BẠN BÍ ẨN — mở ngẫu nhiên 1 bài (thay cho "Quay ngẫu nhiên" cũ) ══ */
+function pickMysteryFriend(el){
+  el.classList.remove('pulse');
+  void el.offsetWidth; // reset animation
+  el.classList.add('pulse');
+  spinRandom();
+}
 function spinRandom(){
   if(!ITEMS.length) return;
   const pool = currentMood ? ITEMS.filter(i => i.mood && i.mood.includes(currentMood)) : ITEMS;
@@ -1472,7 +1471,7 @@ function spinRandom(){
   const subEl    = toast.querySelector('.loading-toast-sub');
   const origText = textEl.textContent;
   const origSub  = subEl.textContent;
-  textEl.textContent = '🎡 Vòng quay dừng ở: ' + pick.emoji + ' ' + pick.title;
+  textEl.textContent = '🕵️ Nhiệm vụ bí mật: ' + pick.emoji + ' ' + pick.title;
   subEl.textContent  = 'Đang mở...';
   toast.classList.add('show');
   setTimeout(() => {
@@ -1491,10 +1490,26 @@ function scrollToSubject(subject){
     : document.getElementById('subject-block-' + slugify(subject));
   if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
 }
+function setActiveMapNode(subject){
+  document.querySelectorAll('#map-nodes .map-node').forEach(n => {
+    const active = n.dataset.subject === subject;
+    n.classList.toggle('active', active);
+    const dot = n.querySelector('.node-dot');
+    if(dot) dot.classList.toggle('active', active);
+  });
+  updateMapLitPath();
+}
+function filterSubject(subject){
+  currentSubject = subject;
+  currentGrade = 'all';
+  setActiveMapNode(subject);
+  renderSubjectSections();
+  scrollToSubject(subject);
+}
 function filterSubjectByName(subject){
   currentSubject = subject;
   currentGrade = 'all';
-  renderSubjectMap();
+  setActiveMapNode(subject);
   renderSubjectSections();
   scrollToSubject(subject);
   return false;
