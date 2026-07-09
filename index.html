@@ -314,44 +314,97 @@ nav {
   background: linear-gradient(90deg, rgba(201,169,110,.08), var(--gold-dk) 55%, var(--gold-lt));
 }
 
-/* Bản đồ — đường cong dạng game map */
-.map-wrap { position: relative; width: 100%; max-width: 340px; margin: 0 auto; }
+/* Bản đồ — đường phiêu lưu kiểu game bảng cờ (board-game trail), ngộ nghĩnh cho bé */
+.map-wrap { position: relative; width: 100%; max-width: 380px; margin: 0 auto; touch-action: pan-y; }
 .map-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.map-path { fill: none; stroke: var(--gold-dk); stroke-width: 2.5; stroke-dasharray: 2 10; stroke-linecap: round; opacity: .45; }
+/* con đường nền: dày, bo tròn, như lối mòn cát */
+.map-path {
+  fill: none; stroke: #4a4636; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; opacity: .5;
+}
+.map-path-tread {
+  fill: none; stroke: #dcc79a; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; opacity: .35;
+  stroke-dasharray: .1 15.5;
+}
 .map-path-lit {
-  fill: none; stroke: url(#litGrad); stroke-width: 3.5; stroke-linecap: round;
-  filter: drop-shadow(0 0 6px rgba(226,201,138,.85));
+  fill: none; stroke: url(#litGrad); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px rgba(226,201,138,.75));
+  transition: stroke-dasharray .5s cubic-bezier(.34,1.56,.64,1);
 }
-.map-node { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 10px; z-index: 1; cursor: pointer; }
-.map-node.align-right { flex-direction: row; }
-.map-node.align-left { flex-direction: row-reverse; }
+.map-path-lit-tread {
+  fill: none; stroke: #fff8e6; stroke-width: 3; stroke-linecap: round; stroke-dasharray: .1 15.5; opacity: .8;
+  transition: stroke-dasharray .5s cubic-bezier(.34,1.56,.64,1);
+}
+.map-sparkle { fill: var(--gold-lt); opacity: .55; animation: sparkleTwinkle 2.6s ease-in-out infinite; transform-origin: center; }
+@keyframes sparkleTwinkle { 0%,100% { opacity: .2; transform: scale(.7); } 50% { opacity: .8; transform: scale(1.15); } }
+
+.map-node {
+  position: absolute; z-index: 1; cursor: pointer;
+  opacity: 0; animation: nodePopIn .5s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes nodePopIn { 0% { opacity: 0; transform: scale(.3); } 100% { opacity: 1; transform: scale(1); } }
+
+/* Icon LUÔN neo đúng tâm tại điểm trên đường cong — nhãn chữ mới là phần được đẩy ra xung quanh */
 .node-dot {
-  width: 58px; height: 58px; border-radius: 50%; flex: 0 0 auto;
-  display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
-  background: rgba(26,26,36,.92); border: 1.5px solid var(--border-hv);
-  transition: all .22s; position: relative;
+  --land: var(--gold);
+  position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  background: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--land) 55%, white), var(--land) 65%);
+  border: 3px solid rgba(255,255,255,.85);
+  box-shadow: 0 5px 0 color-mix(in srgb, var(--land) 60%, black 25%), 0 8px 14px rgba(0,0,0,.35);
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
 }
-.map-node:hover .node-dot { border-color: var(--gold); transform: scale(1.06); }
+.map-node:hover .node-dot { transform: translate(-50%,-50%) scale(1.1) rotate(-4deg); }
+.map-node:active .node-dot { transform: translate(-50%,-50%) scale(.94) translateY(3px); box-shadow: 0 2px 0 color-mix(in srgb, var(--land) 60%, black 25%), 0 3px 8px rgba(0,0,0,.3); }
 .node-dot.active {
-  border-color: var(--gold); transform: scale(1.16);
-  background: linear-gradient(135deg, rgba(226,201,138,.35), rgba(138,108,62,.2));
-  box-shadow: 0 0 0 4px rgba(201,169,110,.14), 0 8px 26px rgba(201,169,110,.55), inset 0 1px 0 rgba(255,255,255,.15);
-  animation: nodeGlow 2.2s ease-in-out infinite;
+  transform: translate(-50%,-50%) scale(1.22);
+  box-shadow: 0 5px 0 color-mix(in srgb, var(--land) 60%, black 25%), 0 0 0 5px rgba(255,255,255,.18), 0 10px 22px rgba(0,0,0,.4);
+  animation: nodeBounce 1.8s ease-in-out infinite;
 }
-@keyframes nodeGlow {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(201,169,110,.14), 0 8px 26px rgba(201,169,110,.5), inset 0 1px 0 rgba(255,255,255,.15); }
-  50% { box-shadow: 0 0 0 8px rgba(201,169,110,.05), 0 8px 32px rgba(201,169,110,.75), inset 0 1px 0 rgba(255,255,255,.15); }
+@keyframes nodeBounce {
+  0%, 100% { transform: translate(-50%,-50%) scale(1.22) translateY(0); }
+  50% { transform: translate(-50%,-50%) scale(1.22) translateY(-5px); }
 }
-.node-dot.start { background: linear-gradient(135deg, var(--gold-lt), var(--gold-dk)); color: var(--ink); border-color: var(--gold); box-shadow: 0 6px 20px rgba(201,169,110,.4); }
-.node-dot.start.active { animation: nodeGlow 2.2s ease-in-out infinite; }
+.node-dot.start { --land: var(--gold-lt); font-size: 1.6rem; }
 .node-count {
-  position: absolute; top: -4px; right: -4px; font-size: .6rem; font-weight: 700;
-  background: var(--ink); border: 1px solid var(--border-hv); color: var(--gold-lt);
-  border-radius: 999px; padding: 1px 6px;
+  position: absolute; top: -6px; right: -6px; font-size: .62rem; font-weight: 800; min-width: 18px; text-align: center;
+  background: #fff; border: 2px solid var(--land); color: #4a3a1a;
+  border-radius: 999px; padding: 1px 4px; box-shadow: 0 2px 4px rgba(0,0,0,.25);
 }
-.node-label { font-size: .74rem; font-weight: 600; color: var(--cream-dim); white-space: nowrap; transition: color .22s; }
-.map-node.active .node-label { color: var(--gold-lt); font-weight: 700; }
-.map-node:hover .node-label { color: var(--cream); }
+
+/* Nhãn tên vùng đất — vị trí neo theo data-pos (right/left/top/bottom), tách biệt hoàn toàn khỏi icon
+   nên icon không còn bị kéo lệch khỏi đường cong nữa */
+.node-label {
+  position: absolute; left: 0; top: 0;
+  font-size: .7rem; font-weight: 700; color: var(--cream); white-space: nowrap; max-width: 108px;
+  overflow: hidden; text-overflow: ellipsis;
+  text-shadow: 0 1px 3px rgba(0,0,0,.6);
+  background: rgba(20,20,28,.55); padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08);
+  transition: color .22s, filter .2s;
+}
+.map-node[data-pos="right"]  .node-label { transform: translate(var(--gap, 36px), calc(-50% + var(--ldy, 0px))) rotate(var(--tilt, 0deg)); }
+.map-node[data-pos="left"]   .node-label { transform: translate(calc(-100% - var(--gap, 36px)), calc(-50% + var(--ldy, 0px))) rotate(var(--tilt, 0deg)); }
+.map-node[data-pos="bottom"] .node-label { transform: translate(calc(-50% + var(--ldx, 0px)), var(--gap, 36px)) rotate(var(--tilt, 0deg)); text-align: center; }
+.map-node[data-pos="top"]    .node-label { transform: translate(calc(-50% + var(--ldx, 0px)), calc(-100% - var(--gap, 36px))) rotate(var(--tilt, 0deg)); text-align: center; }
+.map-node.active .node-label { color: var(--gold-lt); background: rgba(138,108,62,.35); border-color: rgba(226,201,138,.4); }
+.map-node:hover .node-label { filter: brightness(1.2); }
+
+/* Nhãn chữ uốn cong ôm quanh icon — dùng cho vài trạm đặc biệt */
+.curved-label { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+.curved-label span {
+  position: absolute; left: 0; top: 0; transform-origin: 0 0;
+  font-size: .56rem; font-weight: 800; color: var(--cream); text-shadow: 0 1px 3px rgba(0,0,0,.8);
+}
+.map-node.active .curved-label span { color: var(--gold-lt); }
+
+/* Nhân vật nhỏ đi trên đường — đánh dấu vị trí hiện tại */
+.map-traveler {
+  position: absolute; transform: translate(-50%, -115%); font-size: 1.5rem; z-index: 2; pointer-events: none;
+  transition: left .5s cubic-bezier(.34,1.56,.64,1), top .5s cubic-bezier(.34,1.56,.64,1);
+  animation: travelerBob 1.1s ease-in-out infinite; filter: drop-shadow(0 3px 4px rgba(0,0,0,.5));
+}
+@keyframes travelerBob { 0%,100% { transform: translate(-50%,-115%) rotate(-6deg); } 50% { transform: translate(-50%,-128%) rotate(6deg); } }
+
 .grade-tabs-under-map { max-width: 340px; margin: 14px auto 0; }
 
 .hero-eyebrow::after { background: linear-gradient(90deg, var(--gold-dk), transparent); }
@@ -993,9 +1046,13 @@ footer {
         </linearGradient>
       </defs>
       <path class="map-path" id="map-path-base" d=""/>
+      <path class="map-path-tread" id="map-path-tread" d=""/>
       <path class="map-path-lit" id="map-path-lit" d=""/>
+      <path class="map-path-lit-tread" id="map-path-lit-tread" d=""/>
+      <g id="map-sparkles"></g>
     </svg>
     <div id="map-nodes"></div>
+    <div class="map-traveler" id="map-traveler">🚶</div>
   </div>
 </div>
 
@@ -1219,6 +1276,11 @@ const SUBJECT_DISPLAY = {
   "Tổng hợp":"🏕️ Trạm Nghỉ Chân"
 };
 function subjectDisplay(s){ return SUBJECT_DISPLAY[s] || s; }
+/* Màu riêng cho từng "vùng đất" trên bản đồ — để các đảo trông sinh động, dễ phân biệt */
+const LAND_COLOR = {
+  "Toán":"#4ade80", "Tiếng Việt":"#a78bfa", "Tiếng Anh":"#38bdf8", "Khoa học":"#2dd4bf",
+  "Tư duy":"#fb923c", "Nghệ thuật":"#f472b6", "Đạo đức":"#fbbf24", "Giải trí":"#fb7185", "Tổng hợp":"#d6a35c"
+};
 
 /* ══ STATE ══ */
 let currentSubject = 'all';
@@ -1294,62 +1356,170 @@ function updateStats() {
   animateCount(document.getElementById('stat-explore'), ITEMS.filter(i => EXPLORE_TYPES.includes(i.type)).length);
 }
 
-/* ══ BẢN ĐỒ (theo môn học) — render node dọc theo đường cong swirl ══ */
-let mapCoords = []; // toạ độ từng trạm, theo thứ tự ['all', ...subjects]
+/* ══ BẢN ĐỒ (theo môn học) ══
+   Đường cong hình dạng CỐ ĐỊNH — 1 vòng cuộn + đuôi lượn sóng, phỏng theo đúng hình bạn vẽ tay
+   (KHÔNG phải xoắn ốc nhiều vòng). Số môn học thay đổi không làm biến dạng đường cong — chỉ thay đổi
+   số trạm được "rải" dọc theo nó, nhờ getPointAtLength (lấy mẫu theo chiều dài cung thật của SVG path). */
+/* Đường xoáy ốc cuộn tròn + đuôi lượn sóng — phỏng theo đúng hình bé vẽ tay (1 vòng cuộn sạch, không rối) */
+const FIXED_MAP_PATH_D = "M267.1,30.0 C272.9,38.8 294.7,64.0 302.2,82.7 C309.8,101.2 313.1,122.5 312.4,141.5 C311.7,160.5 306.2,180.3 298.0,196.8 C289.9,213.3 277.2,228.7 263.6,240.2 C250.0,251.7 232.9,260.6 216.5,265.8 C200.1,270.9 181.6,272.7 165.3,271.3 C149.0,270.0 132.3,264.8 118.7,257.9 C105.1,251.0 92.7,240.5 83.7,229.8 C74.7,218.8 68.1,205.5 64.6,193.0 C61.0,180.5 60.7,166.6 62.5,154.7 C64.4,142.8 69.6,130.8 75.8,121.3 C82.1,111.9 91.2,103.5 100.2,97.7 C109.2,91.9 120.1,88.2 129.9,86.6 C139.7,84.9 150.3,85.7 159.1,87.8 C167.9,89.9 176.3,94.3 182.7,99.0 C189.1,103.9 194.3,110.5 197.5,116.8 C200.8,122.9 202.3,130.1 202.4,136.3 C202.6,142.3 200.8,148.6 198.5,153.3 C196.2,158.2 192.2,162.2 188.5,165.0 C184.8,167.8 180.1,169.3 176.2,169.9 C172.3,170.5 173.8,166.4 165.2,168.5 C156.7,170.6 138.4,168.5 125.0,182.4 C111.6,196.3 100.8,228.8 85.0,252.0 C69.2,275.2 35.0,297.5 30.0,321.6 C25.0,345.8 37.5,378.7 55.0,397.0 C72.5,415.4 108.3,428.0 135.0,431.8 C161.7,435.7 201.7,422.2 215.0,420.2";
+const MAP_VB_W = 342, MAP_VB_H = 466;
 
-function buildMapPathD(coords){
-  if(coords.length < 2) return '';
-  let d = `M${coords[0].x},${coords[0].y}`;
-  for(let i=0;i<coords.length-1;i++){
-    const a=coords[i], b=coords[i+1];
-    const c1y = a.y + (b.y-a.y)*0.45;
-    const c2y = a.y + (b.y-a.y)*0.55;
-    d += ` C${a.x},${c1y} ${b.x},${c2y} ${b.x},${b.y}`;
-  }
-  return d;
+let mapCoords = [];      // {key, x, y, len} theo thứ tự ['all', ...subjects]
+let mapTotalLen = 0;
+
+/* Điều chỉnh thủ công cho từng trạm — theo phản hồi trực tiếp khi xem trên điện thoại:
+   pos: 'right' | 'left' | 'top' | 'bottom' — hướng đặt tên (mặc định: tự tính theo pháp tuyến đường cong)
+   nudge: {dx,dy} theo đơn vị toạ độ SVG — đẩy icon một chút để áp sát vào đường cong
+   dx/dy: lệch thêm riêng cho CHỮ (không đụng tới icon) — dx cho pos top/bottom, dy cho pos left/right
+   curved: true — tên chữ uốn cong ôm quanh icon; curveSide: 'top'|'right'|'left'|'bottom' hướng uốn; radius: bán kính cong */
+const LABEL_LAYOUT = {
+  "all":        { pos: 'top', gap: 46 },
+  "Giải trí":   { pos: 'bottom' },
+  "Tiếng Việt": { pos: 'bottom', gap: 46 },
+  "Toán":       { pos: 'top', gap: 40, nudge: { dx: -20, dy: 10 } },
+  "Tư duy":     { pos: 'top', nudge: { dx: -18, dy: -26 } },
+  "Tiếng Anh":  { pos: 'left', nudge: { dx: 34, dy: 14 } },
+  "Nghệ thuật": { curved: true, curveSide: 'right', radius: 48, nudge: { dx: 16, dy: 0 } },
+  "Đạo đức":    { dy: 10, nudge: { dx: -24, dy: -10 } },
+  "Khoa học":   { curved: true, curveSide: 'top', radius: 50, nudge: { dx: 10, dy: 6 } },
+};
+
+/* Tạo HTML cho chữ uốn cong dạng vòng cung ôm quanh icon (giống chữ trên huy hiệu tròn).
+   baseAngle: 0=trên đỉnh, 90=bên phải, -90=bên trái, 180=phía dưới (độ, cùng chiều kim đồng hồ) */
+function curvedLabelHTML(text, radius, arcDeg, baseAngle){
+  const chars = text.split('');
+  const n = chars.length;
+  const step = n > 1 ? arcDeg / (n - 1) : 0;
+  const start = baseAngle - arcDeg / 2;
+  let html = `<span class="curved-label">`;
+  chars.forEach((ch, i) => {
+    const angle = (start + step * i).toFixed(1);
+    const c = ch === ' ' ? '&nbsp;' : ch;
+    html += `<span style="transform:rotate(${angle}deg) translate(0,-${radius}px)">${c}</span>`;
+  });
+  html += `</span>`;
+  return html;
 }
 
 function renderSubjectMap(){
   const nodesWrap = document.getElementById('map-nodes');
-  const svg        = document.getElementById('map-svg');
-  const pathBase    = document.getElementById('map-path-base');
-  const wrap        = document.getElementById('map-wrap');
-  const subjects = getSubjects();
-  const items = ['all', ...subjects];
+  const svg       = document.getElementById('map-svg');
+  const pathBase  = document.getElementById('map-path-base');
+  const wrap      = document.getElementById('map-wrap');
+  const subjects  = getSubjects();
+  const items     = ['all', ...subjects];
 
-  // toạ độ dạng đường cong swirl rộng — xen kẽ trái/phải, đi dọc xuống
-  const VB_W = 320, X_LEFT = 34, X_RIGHT = 286, X_CENTER = 160;
-  const STEP_Y = 94, TOP_PAD = 36, BOT_PAD = 40;
+  svg.setAttribute('viewBox', `0 0 ${MAP_VB_W} ${MAP_VB_H}`);
+  wrap.style.height = MAP_VB_H + 'px';
+  pathBase.setAttribute('d', FIXED_MAP_PATH_D);
+  document.getElementById('map-path-tread').setAttribute('d', FIXED_MAP_PATH_D);
+  document.getElementById('map-path-lit').setAttribute('d', FIXED_MAP_PATH_D);
+  document.getElementById('map-path-lit-tread').setAttribute('d', FIXED_MAP_PATH_D);
+
+  mapTotalLen = pathBase.getTotalLength();
+
+  // rắc vài ngôi sao lấp lánh dọc đường cho vui mắt
+  const sparkleWrap = document.getElementById('map-sparkles');
+  if(sparkleWrap && !sparkleWrap.dataset.done){
+    let shtml = '';
+    [0.12, 0.3, 0.5, 0.68, 0.85].forEach((t, i) => {
+      const p = pathBase.getPointAtLength(t * pathBase.getTotalLength());
+      const size = 3 + (i % 3);
+      shtml += `<circle class="map-sparkle" cx="${(p.x+14).toFixed(1)}" cy="${(p.y-10).toFixed(1)}" r="${size}" style="animation-delay:${(i*0.4).toFixed(1)}s"/>`;
+    });
+    sparkleWrap.innerHTML = shtml;
+    sparkleWrap.dataset.done = '1';
+  }
+  const N = items.length;
+  // Khoảng cách giữa các trạm: vẫn "có gần có xa" cho sinh động, nhưng LUÔN có khoảng tối thiểu
+  // đủ rộng để không đè chữ lên nhau (trước đây trạm đầu quá sát trạm 2 vì ease bunching).
+  const GAP_WEIGHTS = [1.3, 0.8, 1.2, 0.75, 1.35, 0.85, 1.15, 0.8, 1.25, 0.9, 1.1, 0.85];
+  const weights = [];
+  for(let i = 0; i < N - 1; i++) weights.push(GAP_WEIGHTS[i % GAP_WEIGHTS.length]);
+  const wsum = weights.reduce((a,b) => a+b, 0) || 1;
+  const tList = [0];
+  let cum = 0;
+  weights.forEach(w => { cum += w; tList.push(cum / wsum); });
+
+  // Vài kiểu nghiêng nhẹ cho chữ, lặp vòng — để tên các "vùng đất" trông như biển chỉ đường viết
+  // tay, ngộ nghĩnh, thay vì chữ nằm ngang đều tăm tắp (chỉ áp dụng khi không ép pos cố định).
+  const TILT_CYCLE = [-6, 4, -3, 6, -5, 3, -6, 5, -4, 6, -3, 5];
+
   mapCoords = items.map((key, i) => {
-    let x;
-    if(i === 0) x = X_CENTER;
-    else x = (i % 2 === 1) ? X_RIGHT : X_LEFT;
-    return { key, x, y: TOP_PAD + i * STEP_Y };
+    const t = tList[i];
+    const len = t * mapTotalLen;
+    const pt = pathBase.getPointAtLength(len);
+    return { key, x: pt.x, y: pt.y, len };
   });
-  const totalH = TOP_PAD + (items.length - 1) * STEP_Y + BOT_PAD;
 
-  svg.setAttribute('viewBox', `0 0 ${VB_W} ${totalH}`);
-  wrap.style.height = totalH + 'px';
-  pathBase.setAttribute('d', buildMapPathD(mapCoords));
+  // Hướng đặt chữ mặc định: tính theo pháp tuyến cục bộ của đường đi (hướng ra ngoài so với tâm
+  // bản đồ), thay vì chỉ so trái/phải theo tọa độ x — để tránh chữ ở 2 vòng cuộn khác nhau chồng lên nhau.
+  const centroid = mapCoords.reduce((a,c) => ({x: a.x+c.x, y: a.y+c.y}), {x:0,y:0});
+  centroid.x /= mapCoords.length; centroid.y /= mapCoords.length;
+
+  function pathNormal(c){
+    const l2 = Math.min(c.len + 3, mapTotalLen);
+    const l1 = Math.max(l2 - 3, 0);
+    const p1 = pathBase.getPointAtLength(l1);
+    const p2 = pathBase.getPointAtLength(l2);
+    let nx = -(p2.y - p1.y), ny = (p2.x - p1.x); // pháp tuyến (vuông góc tiếp tuyến)
+    const len2 = Math.hypot(nx, ny) || 1;
+    nx /= len2; ny /= len2;
+    const vx = c.x - centroid.x, vy = c.y - centroid.y;
+    if(nx*vx + ny*vy < 0){ nx = -nx; ny = -ny; }   // luôn hướng RA XA tâm bản đồ
+    return { nx, ny };
+  }
+
+  function defaultPos(c){
+    const { nx } = pathNormal(c);
+    let alignRight = nx >= 0;
+    // an toàn mép trái/phải: trạm quá sát rìa thì LUÔN hướng chữ vào trong, tránh tràn ra ngoài màn hình
+    if(c.x < MAP_VB_W * 0.26) alignRight = true;
+    else if(c.x > MAP_VB_W * 0.74) alignRight = false;
+    return alignRight ? 'right' : 'left';
+  }
 
   let html = '';
   mapCoords.forEach((c, i) => {
-    const align = (c.x <= X_CENTER) ? 'align-right' : 'align-left';
-    const leftPct = (c.x / VB_W * 100).toFixed(2) + '%';
+    const s = c.key; // 'all' hoặc tên môn
+    const layout = LABEL_LAYOUT[s] || {};
+
+    // đẩy icon một chút để áp sát đường cong theo yêu cầu riêng (mặc định: giữ đúng vị trí trên path)
+    let nudge = layout.nudge;
+    if(nudge === 'inward'){
+      const { nx, ny } = pathNormal(c);
+      nudge = { dx: -nx * 16, dy: -ny * 16 };
+    }
+    const nx = c.x + (nudge ? nudge.dx : 0);
+    const ny = c.y + (nudge ? nudge.dy : 0);
+
+    const pos = layout.pos || defaultPos(c);
+    const gap = layout.gap || 36;
+    const ldx = layout.dx || 0;   // lệch thêm ngang cho chữ (dùng khi pos top/bottom)
+    const ldy = layout.dy || 0;   // lệch thêm dọc cho chữ (dùng khi pos left/right)
+    const leftPct = (nx / MAP_VB_W * 100).toFixed(2) + '%';
+    const delay = (i * 0.07).toFixed(2) + 's';
+    const tilt = (pos === 'top' || pos === 'bottom') ? 0 : TILT_CYCLE[i % TILT_CYCLE.length];
+    const nodeStyle = `top:${ny.toFixed(1)}px;left:${leftPct};animation-delay:${delay};--tilt:${tilt}deg;--gap:${gap}px;--ldx:${ldx}px;--ldy:${ldy}px`;
+
     if(i === 0){
-      html += `<div class="map-node align-right active" data-subject="all" style="top:${c.y}px;left:${leftPct}" onclick="filterSubject('all')">
+      html += `<div class="map-node active" data-subject="all" data-pos="${pos}" style="${nodeStyle}" onclick="filterSubject('all')">
         <div class="node-dot start active">🌍</div>
         <span class="node-label">Tất cả</span>
       </div>`;
     } else {
-      const s = c.key;
       const count = ITEMS.filter(i2 => i2.subject === s).length;
       const label = subjectDisplay(s);
       const emoji = SUBJECT_EMOJI[s] || '📘';
       const name  = label.replace(/^\S+\s*/, ''); // bỏ emoji đầu, giữ tên địa danh
-      html += `<div class="map-node ${align}" data-subject="${s}" style="top:${c.y}px;left:${leftPct}" onclick="filterSubject('${s}')">
-        <div class="node-dot">${emoji}<span class="node-count">${count}</span></div>
-        <span class="node-label">${name}</span>
+      const land  = LAND_COLOR[s] || '#c9a96e';
+      const curveBaseAngle = { top: 0, right: 90, bottom: 180, left: -90 }[layout.curveSide || 'top'];
+      const labelHTML = layout.curved
+        ? curvedLabelHTML(name, layout.radius || 38, 140, curveBaseAngle)
+        : `<span class="node-label">${name}</span>`;
+      html += `<div class="map-node" data-subject="${s}" data-pos="${pos}" style="${nodeStyle}" onclick="filterSubject('${s}')">
+        <div class="node-dot" style="--land:${land}">${emoji}<span class="node-count">${count}</span></div>
+        ${labelHTML}
       </div>`;
     }
   });
@@ -1366,13 +1536,23 @@ function renderSubjectMap(){
   footerWrap.innerHTML = fhtml;
 }
 
-/* Vẽ đoạn "đường sáng" từ điểm bắt đầu tới trạm đang chọn, kiểu bản đồ game */
+/* Đoạn "đường sáng" từ điểm bắt đầu tới trạm đang chọn — dùng stroke-dasharray trên
+   CHÍNH đường path cố định (không dựng lại hình học), nên luôn khớp tuyệt đối với đường nền. */
 function updateMapLitPath(){
-  const pathLit = document.getElementById('map-path-lit');
-  if(!pathLit || !mapCoords.length) return;
+  const pathLit   = document.getElementById('map-path-lit');
+  const pathLitTd = document.getElementById('map-path-lit-tread');
+  const traveler  = document.getElementById('map-traveler');
+  if(!pathLit || !mapCoords.length || !mapTotalLen) return;
   const idx = mapCoords.findIndex(c => c.key === currentSubject);
-  if(idx <= 0){ pathLit.setAttribute('d', ''); return; }
-  pathLit.setAttribute('d', buildMapPathD(mapCoords.slice(0, idx + 1)));
+  const litLen = (idx <= 0) ? 0 : mapCoords[idx].len;
+  pathLit.setAttribute('stroke-dasharray', `${litLen} ${mapTotalLen}`);
+  if(pathLitTd) pathLitTd.setAttribute('stroke-dasharray', `${litLen} ${mapTotalLen}`);
+  // nhân vật nhỏ "đi bộ" tới đúng vị trí trạm đang chọn
+  if(traveler && idx >= 0){
+    const c = mapCoords[idx];
+    traveler.style.left = (c.x / MAP_VB_W * 100).toFixed(2) + '%';
+    traveler.style.top  = c.y + 'px';
+  }
 }
 
 /* ══ CHIPS (theo độ tuổi) ══ */
