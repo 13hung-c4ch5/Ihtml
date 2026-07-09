@@ -240,23 +240,118 @@ nav {
 }
 .hero-cta-secondary:hover { background: rgba(255,255,255,.09); }
 
-/* Mood selector */
-.mood-ctas {
-  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
-}
-.mood-btn {
-  font-family: 'DM Sans', sans-serif; font-size: .86rem; font-weight: 600;
-  padding: 12px 22px; border-radius: 999px; cursor: pointer;
-  background: rgba(255,255,255,.04); border: 1px solid var(--border);
-  color: var(--cream-dim); transition: transform .2s, border-color .2s, color .2s, background .2s;
-}
-.mood-btn:hover { transform: translateY(-2px); border-color: var(--border-hv); color: var(--cream); }
-.mood-btn.active {
-  background: linear-gradient(135deg, rgba(201,169,110,.22), rgba(201,169,110,.08));
-  border-color: var(--gold); color: var(--gold-lt);
-  box-shadow: 0 6px 18px rgba(201,169,110,.2);
-}
 .hero-eyebrow::after { background: linear-gradient(90deg, var(--gold-dk), transparent); }
+
+/* ══ THẺ NHÂN VẬT (thay cho mood-ctas cũ) ══ */
+.char-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  max-width:480px; margin:0 auto;
+}
+@media (max-width:480px){ .char-grid{grid-template-columns:1fr;} }
+.char-card{
+  display:flex; align-items:center; gap:12px; text-align:left;
+  padding:14px 16px; border-radius:16px; cursor:pointer;
+  background:rgba(255,255,255,.03); border:1px solid var(--border);
+  transition:all .22s;
+}
+.char-card:hover{border-color:var(--border-hv);background:rgba(255,255,255,.05);transform:translateY(-2px);}
+.char-card.active{
+  border-color:var(--gold);
+  background:linear-gradient(135deg,rgba(201,169,110,.16),rgba(201,169,110,.05));
+  box-shadow:0 6px 18px rgba(201,169,110,.2);
+}
+.char-avatar{
+  width:46px;height:46px;border-radius:50%;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+}
+.char-card.active .char-avatar{border-color:var(--gold);background:rgba(201,169,110,.15);}
+.char-name{font-weight:700;font-size:.86rem;color:var(--cream);margin-bottom:2px;}
+.char-quote{font-size:.72rem;color:var(--cream-dim);font-style:italic;line-height:1.3;}
+.char-card.active .char-name{color:var(--gold-lt);}
+.char-card.mystery{
+  grid-column:1 / -1;
+  border-style:dashed; border-color:var(--border-hv);
+  background:linear-gradient(135deg,rgba(226,201,138,.06),rgba(255,255,255,.02));
+}
+.char-card.mystery:hover{border-color:var(--gold);}
+.char-card.mystery .char-avatar{background:rgba(201,169,110,.1);}
+
+.zone-gap{display:flex;align-items:center;gap:16px;margin:44px 0 36px;opacity:.5;}
+.zone-gap::before,.zone-gap::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border-hv),transparent);}
+.zone-gap-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);}
+
+.filter-zone{
+  background:rgba(255,255,255,.02); border:1px solid var(--border); border-radius:20px;
+  padding:26px 24px 24px; margin-bottom:28px; text-align:left;
+}
+.filter-zone-head{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
+.filter-zone-icon{font-size:1.1rem;}
+.filter-zone-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--cream);}
+.filter-zone-desc{font-size:.78rem;color:var(--cream-dim);margin-bottom:18px;font-weight:300;}
+
+/* ══ chips hàng ngang (Hành trình) — vạch tiến trình gradient bên dưới ══ */
+.chips-wrap{position:relative;}
+.progress-line{
+  height:3px;border-radius:999px;margin-top:16px;
+  background:linear-gradient(90deg, rgba(201,169,110,.08), var(--gold-dk) 55%, var(--gold-lt));
+}
+/* nút reset dạng tròn (icon-only) cho "Mọi tuổi" */
+.chip-reset{
+  width:38px;height:38px;border-radius:50%;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;font-size:.95rem;
+  border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--gold-lt);
+  cursor:pointer;transition:all .22s;
+}
+.chip-reset:hover{border-color:var(--border-hv);background:rgba(255,255,255,.07);}
+.chip-reset.active{
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold-dk));color:var(--ink);
+  border-color:var(--gold); box-shadow:0 4px 16px rgba(201,169,110,.35);
+}
+
+/* ══ BẢN ĐỒ — đường cong dạng game map ══ */
+.map-wrap{position:relative;width:100%;max-width:340px;margin:0 auto;}
+.map-wrap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
+.map-path{fill:none;stroke:var(--gold-dk);stroke-width:2.5;stroke-dasharray:2 10;stroke-linecap:round;opacity:.45;}
+.map-path-lit{
+  fill:none;stroke:url(#litGrad);stroke-width:3.5;stroke-linecap:round;
+  filter:drop-shadow(0 0 6px rgba(226,201,138,.85));
+}
+.map-node{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:10px;z-index:1;}
+.map-node.align-right{flex-direction:row;}
+.map-node.align-left{flex-direction:row-reverse;}
+.node-dot{
+  width:58px;height:58px;border-radius:50%;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+  background:rgba(26,26,36,.92);border:1.5px solid var(--border-hv);
+  cursor:pointer;transition:all .22s; position:relative;
+}
+.node-dot:hover{border-color:var(--gold);transform:scale(1.06);}
+.node-dot.active{
+  border-color:var(--gold); transform:scale(1.16);
+  background:linear-gradient(135deg,rgba(226,201,138,.35),rgba(138,108,62,.2));
+  box-shadow:0 0 0 4px rgba(201,169,110,.14), 0 8px 26px rgba(201,169,110,.55), inset 0 1px 0 rgba(255,255,255,.15);
+  animation:nodeGlow 2.2s ease-in-out infinite;
+}
+@keyframes nodeGlow{
+  0%,100%{box-shadow:0 0 0 4px rgba(201,169,110,.14), 0 8px 26px rgba(201,169,110,.5), inset 0 1px 0 rgba(255,255,255,.15);}
+  50%{box-shadow:0 0 0 8px rgba(201,169,110,.05), 0 8px 32px rgba(201,169,110,.75), inset 0 1px 0 rgba(255,255,255,.15);}
+}
+.node-dot.start{
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold-dk));color:var(--ink);
+  border-color:var(--gold); box-shadow:0 6px 20px rgba(201,169,110,.4);
+}
+.node-count{
+  position:absolute;top:-4px;right:-4px;font-size:.6rem;font-weight:700;
+  background:var(--ink);border:1px solid var(--border-hv);color:var(--gold-lt);
+  border-radius:999px;padding:1px 6px;
+}
+.node-label{
+  font-size:.74rem;font-weight:600;color:var(--cream-dim);white-space:nowrap;
+  transition:color .22s;
+}
+.map-node.active .node-label{color:var(--gold-lt);font-weight:700;}
+.map-node:hover .node-label{color:var(--cream);}
 .hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2.8rem, 7vw, 5.6rem);
@@ -855,23 +950,65 @@ footer {
   <h1>✨ Tìm ra kho báu 💎<br/><em>mở cánh cửa thế giới 🌟</em></h1>
   <p class="hero-sub">✨ Mỗi món quà là một điều kỳ diệu — cùng nhau chơi, cùng nhau học, cùng nhau lớn. 🌟</p>
 
-  <p class="hero-eyebrow" style="margin:22px 0 12px;font-size:.66rem">✦ Hôm nay con muốn...</p>
-  <div class="mood-ctas" id="mood-ctas">
-    <button class="mood-btn" data-mood="Thư giãn" onclick="selectMood('Thư giãn')">😊 Thư giãn</button>
-    <button class="mood-btn" data-mood="Thử thách" onclick="selectMood('Thử thách')">🤔 Thử thách</button>
-    <button class="mood-btn" data-mood="Sáng tạo" onclick="selectMood('Sáng tạo')">🎨 Sáng tạo</button>
-    <button class="mood-btn" data-mood="Khám phá" onclick="selectMood('Khám phá')">🚀 Khám phá</button>
-  </div>
-  <div class="hero-ctas" style="margin-top:14px">
-    <button class="hero-cta-btn hero-cta-secondary" onclick="spinRandom()">🎡 Quay ngẫu nhiên</button>
+  <p class="hero-eyebrow" style="margin:22px 0 18px;font-size:.66rem">✦ Hôm nay con muốn đi cùng ai?</p>
+  <div class="char-grid" id="char-grid">
+    <div class="char-card" data-mood="Thử thách" onclick="selectMood('Thử thách')">
+      <div class="char-avatar">🐺</div>
+      <div>
+        <div class="char-name">Jack &amp; Hector</div>
+        <div class="char-quote">"Cùng mình phá những câu đố nhé!"</div>
+      </div>
+    </div>
+    <div class="char-card" data-mood="Thư giãn" onclick="selectMood('Thư giãn')">
+      <div class="char-avatar">🐮</div>
+      <div>
+        <div class="char-name">Bò Đen</div>
+        <div class="char-quote">"Mình có vài câu chuyện hay lắm."</div>
+      </div>
+    </div>
+    <div class="char-card" data-mood="Khám phá" onclick="selectMood('Khám phá')">
+      <div class="char-avatar">🌿</div>
+      <div>
+        <div class="char-name">Nấm, Nhím &amp; Thỏ</div>
+        <div class="char-quote">"Đi khám phá khu rừng thôi!"</div>
+      </div>
+    </div>
+    <div class="char-card" data-mood="Sáng tạo" onclick="selectMood('Sáng tạo')">
+      <div class="char-avatar">🐶</div>
+      <div>
+        <div class="char-name">Đậu &amp; Mun</div>
+        <div class="char-quote">"Chơi một trò thật vui nào!"</div>
+      </div>
+    </div>
+    <div class="char-card mystery" onclick="spinRandom()">
+      <div class="char-avatar">🕵️</div>
+      <div>
+        <div class="char-name">Người bạn bí ẩn</div>
+        <div class="char-quote">"Con có muốn nhận một nhiệm vụ bí mật không?"</div>
+      </div>
+    </div>
   </div>
 
-  <!-- Chip lọc theo độ tuổi — render động bằng JS -->
-  <p class="hero-eyebrow" style="margin-bottom:10px;font-size:.62rem">Theo độ tuổi</p>
-  <div class="chips" id="age-chips" style="margin-bottom:20px"></div>
+  <div class="zone-gap"><span class="zone-gap-dot"></span></div>
 
-  <!-- Chip lọc theo môn học — render động bằng JS -->
-  <div class="chips" id="subject-chips"></div>
+  <!-- BẢN ĐỒ — render động bằng JS theo số môn học thực tế trong items.json -->
+  <div class="filter-zone">
+    <div class="filter-zone-head"><span class="filter-zone-icon">🗺️</span><span class="filter-zone-title">Bản đồ</span></div>
+    <p class="filter-zone-desc">Ghé thăm từng vùng đất tri thức</p>
+    <div class="map-wrap" id="subject-map"></div>
+  </div>
+
+  <div class="zone-gap"><span class="zone-gap-dot"></span></div>
+
+  <!-- HÀNH TRÌNH — thay cho chip lọc theo độ tuổi cũ -->
+  <div class="filter-zone">
+    <div class="filter-zone-head"><span class="filter-zone-icon">🧭</span><span class="filter-zone-title">Hành trình</span></div>
+    <p class="filter-zone-desc">Chọn chặng đường phù hợp với tuổi của con</p>
+    <div class="chips-wrap">
+      <div class="chips" id="age-chips"></div>
+      <div class="progress-line"></div>
+    </div>
+  </div>
 </section>
 
 <!-- ══ KẾT QUẢ THEO CẢM XÚC — ẩn cho tới khi bấm chọn ══ -->
@@ -1157,32 +1294,93 @@ function updateStats() {
   animateCount(document.getElementById('stat-explore'), ITEMS.filter(i => EXPLORE_TYPES.includes(i.type)).length);
 }
 
-/* ══ CHIPS (theo môn học) ══ */
-function renderChips(){
-  const wrap = document.getElementById('subject-chips');
+/* ══ BẢN ĐỒ (theo môn học) — thay cho chip môn học cũ ══ */
+function mapEmoji(subject){ return (subjectDisplay(subject).split(' ')[0]) || '📘'; }
+function mapLabel(subject){ return subjectDisplay(subject).split(' ').slice(1).join(' ') || subject; }
+
+function renderSubjectMap(){
+  const wrap = document.getElementById('subject-map');
+  if(!wrap) return;
   const subjects = getSubjects();
-  let html = `<div class="chip active" data-subject="all" onclick="filterSubject('all',this)">✦ Tất cả <span class="chip-count">${ITEMS.length}</span></div>`;
-  subjects.forEach(s => {
-    const count = ITEMS.filter(i => i.subject === s).length;
-    html += `<div class="chip" data-subject="${s}" onclick="filterSubject('${s}',this)">${subjectDisplay(s)} <span class="chip-count">${count}</span></div>`;
+  const N = subjects.length;
+
+  const W = 320, leftX = 90, rightX = 245, centerX = 160;
+  const startY = 30, spacing = 90;
+  const H = startY + spacing * N + 40;
+
+  // Toạ độ từng trạm: xen kẽ trái/phải, trạm cuối cùng canh giữa như điểm đến
+  const points = [{ x: centerX, y: startY, subject: 'all', emoji: '🌍', label: 'Tất cả', start: true }];
+  subjects.forEach((s, i) => {
+    const isLast = i === N - 1;
+    const x = isLast ? centerX : (i % 2 === 0 ? rightX : leftX);
+    points.push({ x, y: startY + spacing * (i + 1), subject: s, emoji: mapEmoji(s), label: mapLabel(s) });
   });
+
+  const activeIdx = currentSubject === 'all' ? 0 : points.findIndex(p => p.subject === currentSubject);
+
+  // Đường nối cong (S-curve) qua toàn bộ các trạm
+  let pathD = `M${points[0].x},${points[0].y}`;
+  for(let i = 1; i < points.length; i++){
+    const p1 = points[i-1], p2 = points[i];
+    const midY = (p1.y + p2.y) / 2;
+    pathD += ` C${p1.x},${midY} ${p2.x},${midY} ${p2.x},${p2.y}`;
+  }
+  // Đường sáng: từ điểm bắt đầu tới trạm đang chọn
+  let litD = '';
+  if(activeIdx > 0){
+    litD = `M${points[0].x},${points[0].y}`;
+    for(let i = 1; i <= activeIdx; i++){
+      const p1 = points[i-1], p2 = points[i];
+      const midY = (p1.y + p2.y) / 2;
+      litD += ` C${p1.x},${midY} ${p2.x},${midY} ${p2.x},${p2.y}`;
+    }
+  }
+
+  let html = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+    <defs><linearGradient id="litGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e2c98a"/><stop offset="100%" stop-color="#c9a96e"/>
+    </linearGradient></defs>
+    <path class="map-path" d="${pathD}"/>
+    ${litD ? `<path class="map-path-lit" d="${litD}"/>` : ''}
+  </svg>`;
+
+  points.forEach((p, i) => {
+    const align = p.start ? 'align-right' : (p.x === centerX ? 'align-right' : (p.x === rightX ? 'align-right' : 'align-left'));
+    const count = p.start ? ITEMS.length : ITEMS.filter(it => it.subject === p.subject).length;
+    const activeCls = i === activeIdx ? ' active' : '';
+    html += `<div class="map-node ${align}${activeCls}" style="top:${p.y}px;left:${p.x}px" onclick="selectMapNode('${p.subject}')">
+      <div class="node-dot${p.start ? ' start' : ''}${activeCls}">${p.emoji}${p.start ? '' : `<span class="node-count">${count}</span>`}</div>
+      <span class="node-label">${p.label}</span>
+    </div>`;
+  });
+
+  wrap.style.height = H + 'px';
   wrap.innerHTML = html;
 
   // footer links tương ứng
   const footerWrap = document.getElementById('footer-subject-links');
-  let fhtml = `<li><a href="#" onclick="return filterSubjectByName('all')">✦ Tất cả</a></li>`;
-  subjects.forEach(s => {
-    fhtml += `<li><a href="#" onclick="return filterSubjectByName('${s}')">${subjectDisplay(s)}</a></li>`;
-  });
-  footerWrap.innerHTML = fhtml;
+  if(footerWrap){
+    let fhtml = `<li><a href="#" onclick="return filterSubjectByName('all')">✦ Tất cả</a></li>`;
+    subjects.forEach(s => {
+      fhtml += `<li><a href="#" onclick="return filterSubjectByName('${s}')">${subjectDisplay(s)}</a></li>`;
+    });
+    footerWrap.innerHTML = fhtml;
+  }
+}
+function selectMapNode(subject){
+  currentSubject = subject;
+  currentGrade = 'all';
+  renderSubjectMap();
+  renderSubjectSections();
+  scrollToSubject(subject);
 }
 
-/* ══ CHIPS (theo độ tuổi) ══ */
+/* ══ HÀNH TRÌNH (theo độ tuổi) — nút tròn ⭐ reset + chip ══ */
 const AGE_LIST = [5,6,7,8,9,10];
 function renderAgeChips(){
   const wrap = document.getElementById('age-chips');
   if(!wrap) return;
-  let html = `<div class="chip active" data-age="all" onclick="filterAge('all',this)">✦ Mọi tuổi</div>`;
+  let html = `<div class="chip-reset active" data-age="all" title="Mọi tuổi" onclick="filterAge('all',this)">⭐</div>`;
   AGE_LIST.forEach(age => {
     const count = ITEMS.filter(i => { const a = itemAges(i); return a.length===0 || a.includes(age); }).length;
     const label = (age === 5) ? 'Lớp Chồi' : `${age} tuổi`;
@@ -1192,7 +1390,7 @@ function renderAgeChips(){
 }
 function filterAge(age, el){
   currentAge = age;
-  document.querySelectorAll('#age-chips .chip').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('#age-chips .chip, #age-chips .chip-reset').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   renderFeatured();
   renderEssential();
@@ -1220,7 +1418,7 @@ let currentMood = null;
 
 function selectMood(mood){
   currentMood = (currentMood === mood) ? null : mood; // bấm lại chính nó = bỏ chọn
-  document.querySelectorAll('.mood-btn').forEach(b => b.classList.toggle('active', b.dataset.mood === currentMood));
+  document.querySelectorAll('.char-card[data-mood]').forEach(b => b.classList.toggle('active', b.dataset.mood === currentMood));
   renderMoodResults();
   if(currentMood){
     document.getElementById('mood-section').scrollIntoView({ behavior:'smooth', block:'start' });
@@ -1228,7 +1426,7 @@ function selectMood(mood){
 }
 function clearMood(){
   currentMood = null;
-  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.char-card[data-mood]').forEach(b => b.classList.remove('active'));
   renderMoodResults();
 }
 function renderMoodResults(){
@@ -1286,20 +1484,10 @@ function scrollToSubject(subject){
     : document.getElementById('subject-block-' + slugify(subject));
   if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
 }
-function filterSubject(subject, el){
-  currentSubject = subject;
-  currentGrade = 'all';
-  document.querySelectorAll('#subject-chips .chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderSubjectSections();
-  scrollToSubject(subject);
-}
 function filterSubjectByName(subject){
   currentSubject = subject;
   currentGrade = 'all';
-  document.querySelectorAll('#subject-chips .chip').forEach(c => {
-    c.classList.toggle('active', c.dataset.subject === subject);
-  });
+  renderSubjectMap();
   renderSubjectSections();
   scrollToSubject(subject);
   return false;
@@ -1568,7 +1756,7 @@ async function init(){
     document.getElementById('subject-empty').style.display = '';
     ITEMS = [];
   }
-  renderChips();
+  renderSubjectMap();
   renderAgeChips();
   renderFeatured();
   renderEssential();
